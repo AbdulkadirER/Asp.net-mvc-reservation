@@ -78,7 +78,7 @@ namespace Foto.Controllers
                     // Küçültülmüş resmi filigran ekleyerek kaydetme
                     var filigranliYol = "/img/" + klasorAdi + "/filigranli_" + dosyaadi;
                     var filigranliKayitYolu = Path.Combine(klasorYolu, "filigranli_" + dosyaadi);
-                    ResizeAndAddWatermark(file.InputStream, filigranliKayitYolu, 800, 600, "FOTO İPEK");
+                    ResizeAndAddWatermark(file.InputStream, filigranliKayitYolu, 800, 600, "Filigran Yazısı");
 
                     // Veritabanına kaydetme
                     var resim = new RESIMLER();
