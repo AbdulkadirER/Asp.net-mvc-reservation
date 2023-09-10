@@ -1,0 +1,140 @@
+﻿@using Foto.Models;
+@model IEnumerable<Foto.Models.SOZDETAY>
+@{
+    fotoveritabaniEntities db = new fotoveritabaniEntities();
+
+    List<SOZDETAY> fundList = db.SOZDETAY.ToList();
+    ViewBag.SOZDETAY = fundList;
+
+    ViewBag.Title = "Sözleşmeler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"> Sözleşmeler</h1>
+    <a href="#" data-toggle="modal" class="btn btn-primary" data-target="#SozlesmeEkle"><i class="fas fa-plus"></i> &nbsp;Sözleşme Ekle</a>
+</div>
+@using (Html.BeginForm("Ekle", "Sozlesme", FormMethod.Post))
+{
+    <div class="modal fade" id="SozlesmeEkle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Sözleşme Ekle !</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label>Sözleşme Adı</label>
+                    <input type="text" class="form-control " name="AD" value="" required />
+                    <label>Sözleşme Detay</label>
+                    <textarea class="form-control" id="exampleFormControlTextarea1" name="DETAYAD" rows="3"></textarea>
+                    <label>Sözleşme Fiyat</label>
+                    <input type="text" class="form-control" name="FIYAT" value="" required />
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">İPTAL</button>
+                    <input type="submit" class="btn btn-primary" name="name" value="kaydet" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<table class="table table-bordered ">
+    <tr>
+        <th>Sözleşme Ad</th>
+        <th>Detay</th>
+        <th>Fiyat ₺</th>
+        <th>Düzenle &nbsp;| &nbsp;Sil</th>
+
+    </tr>
+    <tbody>
+
+        @foreach (var item in Model)
+        {
+            <tr align="center">
+                <td>@item.SOZLESMELER.AD</td>
+                @* burda alt alta yazdırma yapılacak *@
+                <td>
+                    <textarea class="form-control" rows="6" readonly disabled style="border:none; background-color:transparent"> @item.DETAYAD</textarea>
+                   
+                </td>
+                <td>@item.SOZLESMELER.FIYAT</td>
+                <td>
+                    <a href="#" data-toggle="modal" data-target="#Guncelle-@item.SOZLESMEID"><i class="fas fa-edit"></i></a>&nbsp;&nbsp; |&nbsp;&nbsp;
+                    <a href="#" data-toggle="modal" data-target="#Sil-@item.SOZLESMEID"><i class="fas fa-trash"></i></a>
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+@foreach (var item in Model)
+{
+
+    <div class="modal fade" id="Sil-@item.SOZLESMEID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Sil!</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Silmeye eminmisiniz @item.SOZLESMELER.AD </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">İPTAL</button>
+                    <a class="btn btn-primary" href="/Sozlesme/SIL/@item.SOZLESMEID">Sil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@foreach (var item in Model)
+{
+
+    using (Html.BeginForm("Update", "Sozlesme", FormMethod.Post))
+    {
+        <div class="modal fade" id="Guncelle-@item.SOZLESMEID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Güncelle !</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <label>Sözleşme ID</label>
+                        <input type="text" class="form-control " name="SOZLESMEID" value="@item.SOZLESMEID" enable="false" readonly />
+                        <label>Sözleşme Adı</label>
+                        <input type="text" class="form-control " name="AD" value="@item.SOZLESMELER.AD" enable="false" />
+                        <label>Sözleşme Detay</label>
+                        <textarea class="form-control" id="exampleFormControlTextarea1" name="DETAYAD" rows="3">@item.DETAYAD</textarea>
+                        <label>Sözleşme Fiyat</label>
+                        <input type="text" class="form-control" name="FIYAT" value="@item.SOZLESMELER.FIYAT" required />
+                        <br />
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">İPTAL</button>
+
+                        <input type="submit" class="btn btn-primary" name="name" value="Güncelle" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

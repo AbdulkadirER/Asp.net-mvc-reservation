@@ -1,0 +1,442 @@
+﻿@model Foto.Models.REZERVASYON
+@using Foto.Models;
+@{
+    fotoveritabaniEntities db = new fotoveritabaniEntities();
+
+    Class1 cs = new Class1();
+
+    cs.sozleme = new SelectList(db.SOZLESMELER, "SOZLESMEID", "AD");
+    cs.detay = new SelectList(db.SOZDETAY, "DETAYID", "DETAYAD");
+
+    List<PROGRAM> progrm = db.PROGRAM.ToList();
+    ViewBag.PROGRAM = progrm;
+
+    List<EXTRALAR> fundList = db.EXTRALAR.ToList();
+    ViewBag.EXTRALAR = fundList;
+
+    List<SOZLESMELER> sozleme = db.SOZLESMELER.ToList();
+    ViewBag.SOZLESMELER = sozleme;
+
+    ViewBag.Title = "Rezervasyon Yap";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .ddropdown-menu-item-title {
+        background: linear-gradient( 170deg,#4e73df,#2e364c);
+        padding: 5px;
+        margin: 5px 0px 0px 0px;
+        cursor: pointer;
+        border-radius: 15px;
+        color: white;
+    }
+
+
+
+    .ddropdown-menu-item-data {
+        margin: 0;
+        overflow: hidden;
+        transition: height 0.3s ease-out;
+    }
+
+    .lbl {
+        padding-left: 10%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .gg {
+        margin-right: 5px;
+        margin-top: 5px;
+    }
+
+    .ss {
+        padding-left: 200px;
+    }
+
+    .sr {
+        padding-right: 200px;
+    }
+
+    .ddropdown-menu-item-data.hide {
+        height: 0;
+    }
+
+    .ddropdown-menu-item-data.show {
+        height: var(--openHeight);
+    }
+
+    .ddropdown-submenu {
+        margin-top: 5px;
+        padding-top: 10px;
+        padding-left: 10px;
+        background-color: #e0e0e0;
+        list-style-type: none;
+        border: 1px solid #4e73df;
+        border-radius: 15px;
+        background-color: transparent;
+    }
+
+    .ddropdown-submenu-item {
+        padding: 12px;
+        background-color: transparent;
+    }
+
+    @@media screen and (max-width: 768px) {
+        .lbl {
+            padding-left: 10%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .ss {
+            padding-left: 0px;
+        }
+
+        .sr {
+            padding-right: 0px;
+        }
+        /* .sidebar {
+            display: none;
+        }*/
+    }
+</style>
+<script src="~/Scripts/jquery-3.6.3.min.js"></script>
+<h2>Yeni Rezervasyon</h2>
+
+
+@using (Html.BeginForm("Kaydet", "Rezervasyon", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row ">
+        @* Sol taraf *@
+
+        <div class="col-sm ss">
+            <div class="mb-3 form-inline">
+                <div class="mb-3">
+                    <label>Rezervasyon Tarihi</label>
+                    <input type="date" class="form-control" name="REZERVETARIH" style="width:214px" required />
+                </div>
+                <div class="mb-3" style="margin-left:5px">
+                    <label>Başlangıç </label>
+                    <input type="time" class="form-control" name="BASLANGICSAAT" required />
+                </div>
+                <div class="mb-3" style="margin-left:5px">
+                    <label>Bitiş </label>
+                    <input type="time" class="form-control" name="BITISAAT" required />
+                </div>
+            </div>
+
+            <label>Ad Soyad / Tel</label>
+            <div class="mb-3 form-inline">
+                <input type="text" class="form-control gg" name="MUSTERIADSOYAD" placeholder="Ad Soyad" required />
+                <input type="tel" class="form-control gg" name="MUSTERITELEFON" placeholder="Telefon No" required />
+            </div>
+            <label>Damat / Gelin Ad</label>
+            <div class="mb-3 form-inline">
+
+
+                <input type="text" class="form-control gg" name="DAMATAD" value="" placeholder="Damat Adı" />
+                <input type="text" class="form-control gg" name="GELINAD" value="" placeholder="Gelin Adı" />
+            </div>
+            <label>Damat / Gelin Telefon</label>
+            <div class="mb-3 form-inline">
+                <input type="tel" class="form-control gg" name="DAMATTEL" value="" placeholder="Damat Telefon" />
+                <input type="tel" class="form-control gg" name="GELINTEL" value="" placeholder="Gelin Telefon" />
+            </div>
+            <label>Damat / Gelin Email</label>
+            <div class="mb-3 form-inline">
+                <input type="email" class="form-control gg" name="DAMATEMAIL" value="" placeholder="Damat Email" />
+                <input type="email" class="form-control gg" name="GELINEMAIL" value="" placeholder="Gelin Email" />
+            </div>
+            <div class="mb-3 ">
+                <label>PROGRAM</label>
+                <select name="PROGRAM" id="" class="form-select" style="width:214px">
+                    <option value="">Seçiniz</option>
+                    @foreach (var item in ViewBag.PROGRAM)
+                    {
+                        <option value="@item.PROGRAMID">@item.PROGRAMLAR</option>
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="mb-3 ">
+                <label>Rezevasyon Durumu</label>
+                <select name="DURUM" id="" class="form-select" style="width:214px" required>
+                    <option value="">Seçiniz</option>
+                    <option value="1">Kesin</option>
+                    <option value="2">Tarih Açıkta</option>
+                    <option value="3">Teklif</option>
+
+                </select>
+
+            </div>
+            <label>Sözleşme Fiyat</label>
+            <div class="mb-3 form-inline">
+                <input type="text" id="Sfiyat" name="SOZLESMEFIYAT" class="form-control" readonly />
+                <label>Extra Fiyat</label>
+                <input type="text" id="Efiyat" placeholder="extra" name="EXTRAFIYAT" class="form-control" readonly />
+            </div>
+            <label>İskonto</label>
+            <div class="mb-3 form-inline">
+                <input type="text" id="Ifiyat" name="ISKONTO" class="form-control" />
+            </div>
+            <label>Fiyat</label>
+            <div class="mb-3 form-inline">
+                <input type="text" id="Bfiyat" name="FIYAT" class="form-control" />
+            </div>
+            <label>Genel Toplam</label>
+            <div class="mb-3 form-inline">
+                <input type="text" id="Gfiyat" name="GENELTOPLAM" class="form-control" readonly />
+            </div>
+            <label>Notlar / Özel İstekler </label>
+            <div class="mb-3">
+                <textarea class="form-control" name="NOTLAR" style="width:428px" placeholder="Not ve Özel İstek" rows="3"></textarea>
+            </div>
+            <label>Çekim Yeri</label>
+            <div class="mb-3 form-inline">
+                <input type="text" id="" style="width:428px" name="CEKIMYERI" placeholder="Çekim Yeri" class="form-control" />
+            </div>
+        </div>
+        @* sağ taraf *@
+        <div class="col-sm sr">
+            <div class="mb-3">
+
+                <label for="" class="form-label">Sozlesmeler</label>
+                <select id="DrpSozlesme" name="sozlesmeler" class="form-select" required size="5" multiple>
+                    <option value="0">---Seçiniz--</option>
+                    @foreach (var item in ViewBag.SOZLESMELER)
+                    {
+                        <option data-fiyats="@item.FIYAT" name="sozlesmelerr" value="@item.SOZLESMEID">@item.AD (@item.FIYAT ₺)</option>
+
+                    }
+                </select>
+
+                <label for="" class="form-label">Detay</label>
+                @Html.TextArea("DrpSozdetay", "---Seçim Yapın--", new { @class = "form-control", @rows = "8", @readonly = true })
+
+            </div>
+
+            <div class="mb-3">
+                <div class="ddropdown-menu">
+                    <div>
+                        <div class="ddropdown-menu-item-title">EXTRALAR --V--</div>
+                        <div class="ddropdown-menu-item-data hide">
+                            <div class="ddropdown-submenu">
+                                @foreach (var E in ViewBag.EXTRALAR)
+                                {
+                                    <label class="lbl">
+                                        <input type="checkbox" class="chxx" name="Extralar" data-Fiyat="@E.FIYAT" value="@E.EXTRAID"> @E.AD (@E.FIYAT ₺)                                                <span></span>
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <label for="" class="form-label">Resim Seç</label>
+
+                    @Html.TextBoxFor(x => x.REZERVERESIM, new { @class = "form-control", @type = "file", @accept = "image/*", @id = "aResim" })
+
+                    <div id="preview" style="margin-top:10px;"></div>
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    
+    <div style="text-align:center">
+        <button type="submit" class="form-control" style="display: inline-block; background-color: #495883;color:white; "><i class="fas fa-save"></i> &nbsp; Kaydet</button>
+
+    </div>
+}
+
+<script>
+    const images = document.getElementById('aResim'),
+        preview = document.getElementById('preview');
+
+    images.addEventListener('change', function () {
+        preview.innerHTML = '';
+        [...this.files].map(file => {
+            const reader = new FileReader();
+            reader.addEventListener('load', function () {
+                const image = new Image();
+                image.height = 100;
+                image.title = file.name;
+                image.src = this.result;
+                preview.appendChild(image);
+            });
+            reader.readAsDataURL(file);
+        })
+    });
+
+    $(function () {
+
+        //window.onload olduğunda seçimi yapılmış olan idleri döndürme ve detayları getirme kodu yazılacak
+        $('#DrpSozlesme').change(function () {
+            var fiyats = [];
+            var cikis = 0;
+            $("option[name='sozlesmelerr']:selected").each(function () {
+                var categoryFiyat = $(this).attr("data-fiyats");
+                fiyats.push(categoryFiyat);
+            });
+
+            var id = $('#DrpSozlesme').val();
+            var test = String(id);
+            let ids = test.split(",");
+            $('#DrpSozdetay').empty();
+            for (var i = 0; i < ids.length; i++) {
+                //alert(ids[i]);
+                $.ajax({
+                    url: '/Rezervasyon/detayGetir',
+                    data: { p: ids[i] },
+                    type: "POST",
+                    dataType: "Json",
+                    success: function (data) {
+                        console.log(data);
+                        if (ids.length > 1) {
+                            $('#DrpSozdetay').append('\r' + "----------------------------------" + '\r');
+                        }
+                        for (var i = 0; i < data.length; i++) {
+                            $('#DrpSozdetay').append(data[i].text);
+
+                        }
+                    }
+                });
+            }
+
+            for (var i = 0; i < fiyats.length; i++) {
+                cikis += Number(fiyats[i]);
+
+                var dn = document.getElementById("Sfiyat").value = cikis;
+
+            } if (cikis == 0) {
+                var dn = document.getElementById("Sfiyat").value = 0;
+            }
+            /*
+           // alert(typeof (id));
+           // alert(typeof (String(id)));
+           // var test = (str)id.split(",")
+           $.ajax({
+               url: '/Rezervasyon/detayGetir',
+               data: { p: id },
+               type: "POST",
+               dataType: "Json",
+               success: function (data) {
+                   console.log(data);
+                   $('#DrpSozdetay').empty();
+                   for (var i = 0; i < data.length; i++) {
+                       $('#DrpSozdetay').append(data[i].text);
+
+                   }
+               }
+           });
+           */
+        });
+    });
+
+    $(function () {
+
+
+        $('.chxx').change(function () {
+            var fiyat = [];
+            var sonuc = 0;
+            $("input[name='Extralar']:checked").each(function () {
+                var categoryIdTwo = $(this).attr("data-fiyat");
+                fiyat.push(categoryIdTwo);
+
+            });
+            for (var i = 0; i < fiyat.length; i++) {
+                sonuc += Number(fiyat[i]);
+
+                var dn = document.getElementById("Efiyat").value = sonuc;
+
+            } if (sonuc == 0) {
+                var dn = document.getElementById("Efiyat").value = 0;
+            }
+
+            //--veri tabanı isteği
+            //$.ajax({
+            //    url: '/Rezervasyon/extraGetir',
+            //    data: { d: id[i] },
+            //    type: "POST",
+            //    dataType: "Json",
+            //    success: function (data) {
+            //        console.log(data);
+            //        $('#Efiyat').empty();
+            //        for (var i = 0; i < data.length; i++) {
+            //            /*$('#Efiyat').append(data[i].text);*/
+            //            /*var dn = document.getElementById("Efiyat").value = sonuc;*/
+            //            sonuc = data[i].Valuee;
+            //        }
+            //    }
+            //});
+        });
+    });
+    var ext = document.getElementById("Efiyat").value = 0;
+    var szl = document.getElementById("Sfiyat").value = 0;
+
+
+    $(function () {
+
+        $('#DrpSozlesme').change(function () {
+            var isknt = Number(document.getElementById("Ifiyat").value = "");
+            var fyt = Number(document.getElementById("Bfiyat").value = "");
+
+            var sonuc = 0;
+            var ext = Number(document.getElementById("Efiyat").value);
+            var szl = Number(document.getElementById("Sfiyat").value);
+            sonuc = parseInt(szl) + parseInt(ext);
+            var gnl = Number(document.getElementById("Gfiyat").value = sonuc);
+        });
+        $('#Ifiyat').keyup(function () {
+            var sonuc = 0;
+            var ext = Number(document.getElementById("Efiyat").value);
+            var szl = Number(document.getElementById("Sfiyat").value);
+            sonuc = parseInt(szl) + parseInt(ext);
+            var isknt = Number(document.getElementById("Ifiyat").value);
+            var gnl = Number(document.getElementById("Gfiyat").value = sonuc - isknt);
+        });
+
+        $('#Bfiyat').keyup(function () {
+            var sonuc = 0;
+            var ext = Number(document.getElementById("Efiyat").value);
+            var szl = Number(document.getElementById("Sfiyat").value);
+            var fyt = Number(document.getElementById("Bfiyat").value);
+            var isknt = Number(document.getElementById("Ifiyat").value);
+            sonuc = parseInt(szl) + parseInt(ext) + parseInt(fyt) - parseInt(isknt);
+            var gnl = Number(document.getElementById("Gfiyat").value = sonuc);
+        });
+
+        $('.chxx').change(function () {
+            var isknt = Number(document.getElementById("Ifiyat").value = "");
+            var fyt = Number(document.getElementById("Bfiyat").value = "");
+
+            var sonuc = 0;
+            var ext = Number(document.getElementById("Efiyat").value);
+            var szl = Number(document.getElementById("Sfiyat").value);
+            sonuc = parseInt(szl) + parseInt(ext);
+            var gnl = Number(document.getElementById("Gfiyat").value = sonuc);
+
+        });
+
+    });
+
+    let dropdownMenuItemTitles = document.querySelectorAll('.ddropdown-menu-item-title');
+
+    dropdownMenuItemTitles.forEach(menuItemTitle => {
+        menuItemTitle.addEventListener('click', (e) => {
+
+            const menuItemData = e.target.nextElementSibling;
+
+            menuItemData.style.setProperty('--openHeight', menuItemData.scrollHeight + 'px');
+
+            menuItemData.classList.toggle('show');
+            menuItemData.classList.toggle('hide');
+        })
+    });
+</script>
+
+

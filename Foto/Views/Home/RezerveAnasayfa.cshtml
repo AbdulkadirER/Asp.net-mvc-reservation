@@ -1,0 +1,52 @@
+﻿
+
+@model List<REZERVASYON>
+@using Foto.Models;
+@{
+    ViewBag.Title = "RezerveAnasayfa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .img-boyut {
+        height: 165px;
+        object-fit: scale-down;
+        text-align: center;
+    }
+</style>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"> AKTİF İŞLER</h1>
+    <a href="~/Rezervasyon" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Rezervasyon Ekle
+    </a>
+</div>
+<div class="container mt-3">
+    <div class="row">
+        @foreach (var item in Model)
+        {
+
+            <div class="col-md-4 col-lg-3 mb-3">
+                <div class="card ">
+                    @if (item.REZERVERESIM != null)
+                    {
+                        <img class="card-img-top img-boyut" src="@item.REZERVERESIM">
+                    }
+                    else
+                    {
+                        <img class="card-img-top" src="https://via.placeholder.com/300x200">
+                    }
+                    <div class="card-body">
+                        <h5 class="card-title">@item.MUSTERILER.MUSTERIADSOYAD</h5>
+                        <p class="card-text">Some quick example text to build on the card title</p>
+                        <a href="~/Rezervasyon/guncelle/@item.REZERVEID" class="btn btn-primary">DÜZENLE</a>
+                    </div>
+                </div>
+            </div>
+        }
+
+
+
+
+    </div>
+
+</div>
+

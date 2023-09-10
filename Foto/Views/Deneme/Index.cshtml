@@ -1,0 +1,57 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@using (Html.BeginForm("Upload", "Deneme", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <input type="file" id="fileInput" name="file" multiple />
+    <input type="submit" id="submitButton" value="Gönder" />
+}
+
+
+
+<script>
+    $(document).ready(function () {
+        var fileInput = $('#fileInput');
+        var submitButton = $('#submitButton');
+
+        submitButton.on('click', function () {
+            var file = fileInput[0].files[0];
+
+            if (file) {
+                submitFile(file);
+            } else {
+                alert('Lütfen bir dosya seçin.');
+            }
+        });
+
+        function submitFile(file) {
+            var formData = new FormData();
+            formData.append('file', file);
+
+            $.ajax({
+                url: '@Url.Action("Upload", "Home")',
+                type: 'GET',
+                data: formData,
+                contentType: false,
+                processData: false,
+                success: function (response) {
+                    console.log(response);
+
+                    if (response.status === 'ok') {
+                        alert('Dosya başarıyla yüklendi.');
+                    } else {
+                        alert('Dosya yükleme hatası: ' + response.message);
+                    }
+                },
+                error: function (xhr, status, error) {
+                    console.log(error);
+                    alert('Dosya yükleme hatası: ' + error);
+                }
+            });
+        }
+    });
+</script>

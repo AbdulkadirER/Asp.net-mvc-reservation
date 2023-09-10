@@ -1,0 +1,335 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="fotoveritabaniModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="İd" />
+    </Key>
+    <Property Name="İd" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="title" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="start" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="color" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="url" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+  </EntityType>
+  <EntityType Name="EXTRALAR">
+    <Key>
+      <PropertyRef Name="EXTRAID" />
+    </Key>
+    <Property Name="EXTRAID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FIYATTIPI" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="FIYAT" Type="Int32" />
+    <NavigationProperty Name="MUSTERIEXTRALAR" Relationship="Self.FK_MUSTERIEXTRALAR_EXTRALAR" FromRole="EXTRALAR" ToRole="MUSTERIEXTRALAR" />
+  </EntityType>
+  <EntityType Name="MUSTERIEXTRALAR">
+    <Key>
+      <PropertyRef Name="MUSTERIEXTID" />
+    </Key>
+    <Property Name="MUSTERIEXTID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MUSTERIID" Type="Int32" />
+    <Property Name="EXTRAIDLER" Type="Int32" />
+    <NavigationProperty Name="EXTRALAR" Relationship="Self.FK_MUSTERIEXTRALAR_EXTRALAR" FromRole="MUSTERIEXTRALAR" ToRole="EXTRALAR" />
+    <NavigationProperty Name="MUSTERILER" Relationship="Self.FK_MUSTERIEXTRALAR_MUSTERILER1" FromRole="MUSTERIEXTRALAR" ToRole="MUSTERILER" />
+  </EntityType>
+  <EntityType Name="MUSTERILER">
+    <Key>
+      <PropertyRef Name="MUSTERIID" />
+    </Key>
+    <Property Name="MUSTERIID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MUSTERIADSOYAD" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="MUSTERITELEFON" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="MUSTERISIFRE" Type="Int32" />
+    <Property Name="YETKILIMI" Type="Boolean" />
+    <NavigationProperty Name="MUSTERIEXTRALAR" Relationship="Self.FK_MUSTERIEXTRALAR_MUSTERILER1" FromRole="MUSTERILER" ToRole="MUSTERIEXTRALAR" />
+    <NavigationProperty Name="MUSTERIRESIMLER" Relationship="Self.FK_MUSTERIRESIMLER_MUSTERILER" FromRole="MUSTERILER" ToRole="MUSTERIRESIMLER" />
+    <NavigationProperty Name="MUSTERISOZLESMELER" Relationship="Self.FK_MUSTERISOZLESMELER_MUSTERILER" FromRole="MUSTERILER" ToRole="MUSTERISOZLESMELER" />
+    <NavigationProperty Name="REZERVASYON" Relationship="Self.FK_REZERVASYON_MUSTERILER1" FromRole="MUSTERILER" ToRole="REZERVASYON" />
+  </EntityType>
+  <EntityType Name="MUSTERIRESIMLER">
+    <Key>
+      <PropertyRef Name="MUSTERIRESID" />
+    </Key>
+    <Property Name="MUSTERIRESID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MUSTERIID" Type="Int32" />
+    <Property Name="RESIMIDLER" Type="Int32" />
+    <NavigationProperty Name="MUSTERILER" Relationship="Self.FK_MUSTERIRESIMLER_MUSTERILER" FromRole="MUSTERIRESIMLER" ToRole="MUSTERILER" />
+    <NavigationProperty Name="RESIMLER" Relationship="Self.FK_MUSTERIRESIMLER_RESIMLER" FromRole="MUSTERIRESIMLER" ToRole="RESIMLER" />
+  </EntityType>
+  <EntityType Name="MUSTERISOZLESMELER">
+    <Key>
+      <PropertyRef Name="MUSTERISOZID" />
+    </Key>
+    <Property Name="MUSTERISOZID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MUSTERIID" Type="Int32" />
+    <Property Name="SOZLESMEIDLER" Type="Int32" />
+    <NavigationProperty Name="MUSTERILER" Relationship="Self.FK_MUSTERISOZLESMELER_MUSTERILER" FromRole="MUSTERISOZLESMELER" ToRole="MUSTERILER" />
+    <NavigationProperty Name="SOZLESMELER" Relationship="Self.FK_MUSTERISOZLESMELER_SOZLESMELER" FromRole="MUSTERISOZLESMELER" ToRole="SOZLESMELER" />
+  </EntityType>
+  <EntityType Name="PROGRAM">
+    <Key>
+      <PropertyRef Name="PROGRAMID" />
+    </Key>
+    <Property Name="PROGRAMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="PROGRAMLAR" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="REZERVASYON" Relationship="Self.FK_REZERVASYON_PROGRAM" FromRole="PROGRAM" ToRole="REZERVASYON" />
+  </EntityType>
+  <EntityType Name="RESIMLER">
+    <Key>
+      <PropertyRef Name="RESIMID" />
+    </Key>
+    <Property Name="RESIMID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="RESIMYOL" Type="String" MaxLength="255" FixedLength="false" Unicode="false" />
+    <Property Name="REZERVEID" Type="Int32" />
+    <Property Name="MUSTERIID" Type="Int32" />
+    <NavigationProperty Name="MUSTERIRESIMLER" Relationship="Self.FK_MUSTERIRESIMLER_RESIMLER" FromRole="RESIMLER" ToRole="MUSTERIRESIMLER" />
+  </EntityType>
+  <EntityType Name="REZERVASYON">
+    <Key>
+      <PropertyRef Name="REZERVEID" />
+    </Key>
+    <Property Name="REZERVEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="MUSTERIID" Type="Int32" />
+    <Property Name="REZERVETARIH" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <Property Name="BASLANGICSAAT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="BITISAAT" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="PROGRAM" Type="Int32" />
+    <Property Name="DURUM" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DAMATAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GELINAD" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DAMATTEL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="GELINTEL" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+    <Property Name="DAMATEMAIL" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="GELINEMAIL" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="EVLILIKTARIHI" Type="DateTime" Precision="0" />
+    <Property Name="MUSTERISOZID" Type="Int32" />
+    <Property Name="MUSTERIEXTID" Type="Int32" />
+    <Property Name="MUSTERIRESID" Type="Int32" />
+    <Property Name="SOZLESMEFIYAT" Type="Int32" />
+    <Property Name="EXTRAFIYAT" Type="Int32" />
+    <Property Name="ISKONTO" Type="Int32" />
+    <Property Name="FIYAT" Type="Int32" />
+    <Property Name="GENELTOPLAM" Type="Int32" />
+    <Property Name="NOTLAR" Type="String" MaxLength="500" FixedLength="false" Unicode="false" />
+    <Property Name="CEKIMYERI" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="EVENTS" Type="Int32" />
+    <Property Name="REZERVERESIM" Type="String" MaxLength="250" FixedLength="false" Unicode="false" />
+    <NavigationProperty Name="MUSTERILER" Relationship="Self.FK_REZERVASYON_MUSTERILER1" FromRole="REZERVASYON" ToRole="MUSTERILER" />
+    <NavigationProperty Name="PROGRAM1" Relationship="Self.FK_REZERVASYON_PROGRAM" FromRole="REZERVASYON" ToRole="PROGRAM" />
+  </EntityType>
+  <EntityType Name="SOZDETAY">
+    <Key>
+      <PropertyRef Name="DETAYID" />
+    </Key>
+    <Property Name="DETAYID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="DETAYAD" Type="String" MaxLength="1000" FixedLength="false" Unicode="false" />
+    <Property Name="SOZLESMEID" Type="Int32" />
+    <NavigationProperty Name="SOZLESMELER" Relationship="Self.FK_SOZDETAY_SOZLESMELER1" FromRole="SOZDETAY" ToRole="SOZLESMELER" />
+  </EntityType>
+  <EntityType Name="SOZLESMELER">
+    <Key>
+      <PropertyRef Name="SOZLESMEID" />
+    </Key>
+    <Property Name="SOZLESMEID" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="AD" Type="String" MaxLength="150" FixedLength="false" Unicode="false" />
+    <Property Name="FIYAT" Type="Int32" />
+    <NavigationProperty Name="MUSTERISOZLESMELER" Relationship="Self.FK_MUSTERISOZLESMELER_SOZLESMELER" FromRole="SOZLESMELER" ToRole="MUSTERISOZLESMELER" />
+    <NavigationProperty Name="SOZDETAY" Relationship="Self.FK_SOZDETAY_SOZLESMELER1" FromRole="SOZLESMELER" ToRole="SOZDETAY" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="String" MaxLength="128" FixedLength="false" Unicode="true" Nullable="false" />
+    <Property Name="principal_id" Type="Int32" Nullable="false" />
+    <Property Name="diagram_id" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+    <Property Name="version" Type="Int32" />
+    <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
+  </EntityType>
+  <Association Name="FK_MUSTERIEXTRALAR_EXTRALAR">
+    <End Role="EXTRALAR" Type="Self.EXTRALAR" Multiplicity="0..1" />
+    <End Role="MUSTERIEXTRALAR" Type="Self.MUSTERIEXTRALAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EXTRALAR">
+        <PropertyRef Name="EXTRAID" />
+      </Principal>
+      <Dependent Role="MUSTERIEXTRALAR">
+        <PropertyRef Name="EXTRAIDLER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MUSTERIEXTRALAR_MUSTERILER1">
+    <End Role="MUSTERILER" Type="Self.MUSTERILER" Multiplicity="0..1" />
+    <End Role="MUSTERIEXTRALAR" Type="Self.MUSTERIEXTRALAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUSTERILER">
+        <PropertyRef Name="MUSTERIID" />
+      </Principal>
+      <Dependent Role="MUSTERIEXTRALAR">
+        <PropertyRef Name="MUSTERIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MUSTERIRESIMLER_MUSTERILER">
+    <End Role="MUSTERILER" Type="Self.MUSTERILER" Multiplicity="0..1" />
+    <End Role="MUSTERIRESIMLER" Type="Self.MUSTERIRESIMLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUSTERILER">
+        <PropertyRef Name="MUSTERIID" />
+      </Principal>
+      <Dependent Role="MUSTERIRESIMLER">
+        <PropertyRef Name="MUSTERIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MUSTERISOZLESMELER_MUSTERILER">
+    <End Role="MUSTERILER" Type="Self.MUSTERILER" Multiplicity="0..1" />
+    <End Role="MUSTERISOZLESMELER" Type="Self.MUSTERISOZLESMELER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUSTERILER">
+        <PropertyRef Name="MUSTERIID" />
+      </Principal>
+      <Dependent Role="MUSTERISOZLESMELER">
+        <PropertyRef Name="MUSTERIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REZERVASYON_MUSTERILER1">
+    <End Role="MUSTERILER" Type="Self.MUSTERILER" Multiplicity="0..1" />
+    <End Role="REZERVASYON" Type="Self.REZERVASYON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUSTERILER">
+        <PropertyRef Name="MUSTERIID" />
+      </Principal>
+      <Dependent Role="REZERVASYON">
+        <PropertyRef Name="MUSTERIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MUSTERIRESIMLER_RESIMLER">
+    <End Role="RESIMLER" Type="Self.RESIMLER" Multiplicity="0..1" />
+    <End Role="MUSTERIRESIMLER" Type="Self.MUSTERIRESIMLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RESIMLER">
+        <PropertyRef Name="RESIMID" />
+      </Principal>
+      <Dependent Role="MUSTERIRESIMLER">
+        <PropertyRef Name="RESIMIDLER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MUSTERISOZLESMELER_SOZLESMELER">
+    <End Role="SOZLESMELER" Type="Self.SOZLESMELER" Multiplicity="0..1" />
+    <End Role="MUSTERISOZLESMELER" Type="Self.MUSTERISOZLESMELER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SOZLESMELER">
+        <PropertyRef Name="SOZLESMEID" />
+      </Principal>
+      <Dependent Role="MUSTERISOZLESMELER">
+        <PropertyRef Name="SOZLESMEIDLER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REZERVASYON_PROGRAM">
+    <End Role="PROGRAM" Type="Self.PROGRAM" Multiplicity="0..1" />
+    <End Role="REZERVASYON" Type="Self.REZERVASYON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROGRAM">
+        <PropertyRef Name="PROGRAMID" />
+      </Principal>
+      <Dependent Role="REZERVASYON">
+        <PropertyRef Name="PROGRAM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOZDETAY_SOZLESMELER1">
+    <End Role="SOZLESMELER" Type="Self.SOZLESMELER" Multiplicity="0..1" />
+    <End Role="SOZDETAY" Type="Self.SOZDETAY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SOZLESMELER">
+        <PropertyRef Name="SOZLESMEID" />
+      </Principal>
+      <Dependent Role="SOZDETAY">
+        <PropertyRef Name="SOZLESMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <EntityContainer Name="fotoveritabaniEntities" annotation:LazyLoadingEnabled="true">
+    <EntitySet Name="Events" EntityType="Self.Events" />
+    <EntitySet Name="EXTRALAR" EntityType="Self.EXTRALAR" />
+    <EntitySet Name="MUSTERIEXTRALAR" EntityType="Self.MUSTERIEXTRALAR" />
+    <EntitySet Name="MUSTERILER" EntityType="Self.MUSTERILER" />
+    <EntitySet Name="MUSTERIRESIMLER" EntityType="Self.MUSTERIRESIMLER" />
+    <EntitySet Name="MUSTERISOZLESMELER" EntityType="Self.MUSTERISOZLESMELER" />
+    <EntitySet Name="PROGRAM" EntityType="Self.PROGRAM" />
+    <EntitySet Name="RESIMLER" EntityType="Self.RESIMLER" />
+    <EntitySet Name="REZERVASYON" EntityType="Self.REZERVASYON" />
+    <EntitySet Name="SOZDETAY" EntityType="Self.SOZDETAY" />
+    <EntitySet Name="SOZLESMELER" EntityType="Self.SOZLESMELER" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" />
+    <AssociationSet Name="FK_MUSTERIEXTRALAR_EXTRALAR" Association="Self.FK_MUSTERIEXTRALAR_EXTRALAR">
+      <End Role="EXTRALAR" EntitySet="EXTRALAR" />
+      <End Role="MUSTERIEXTRALAR" EntitySet="MUSTERIEXTRALAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MUSTERIEXTRALAR_MUSTERILER1" Association="Self.FK_MUSTERIEXTRALAR_MUSTERILER1">
+      <End Role="MUSTERILER" EntitySet="MUSTERILER" />
+      <End Role="MUSTERIEXTRALAR" EntitySet="MUSTERIEXTRALAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MUSTERIRESIMLER_MUSTERILER" Association="Self.FK_MUSTERIRESIMLER_MUSTERILER">
+      <End Role="MUSTERILER" EntitySet="MUSTERILER" />
+      <End Role="MUSTERIRESIMLER" EntitySet="MUSTERIRESIMLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MUSTERISOZLESMELER_MUSTERILER" Association="Self.FK_MUSTERISOZLESMELER_MUSTERILER">
+      <End Role="MUSTERILER" EntitySet="MUSTERILER" />
+      <End Role="MUSTERISOZLESMELER" EntitySet="MUSTERISOZLESMELER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REZERVASYON_MUSTERILER1" Association="Self.FK_REZERVASYON_MUSTERILER1">
+      <End Role="MUSTERILER" EntitySet="MUSTERILER" />
+      <End Role="REZERVASYON" EntitySet="REZERVASYON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MUSTERIRESIMLER_RESIMLER" Association="Self.FK_MUSTERIRESIMLER_RESIMLER">
+      <End Role="RESIMLER" EntitySet="RESIMLER" />
+      <End Role="MUSTERIRESIMLER" EntitySet="MUSTERIRESIMLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MUSTERISOZLESMELER_SOZLESMELER" Association="Self.FK_MUSTERISOZLESMELER_SOZLESMELER">
+      <End Role="SOZLESMELER" EntitySet="SOZLESMELER" />
+      <End Role="MUSTERISOZLESMELER" EntitySet="MUSTERISOZLESMELER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REZERVASYON_PROGRAM" Association="Self.FK_REZERVASYON_PROGRAM">
+      <End Role="PROGRAM" EntitySet="PROGRAM" />
+      <End Role="REZERVASYON" EntitySet="REZERVASYON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOZDETAY_SOZLESMELER1" Association="Self.FK_SOZDETAY_SOZLESMELER1">
+      <End Role="SOZLESMELER" EntitySet="SOZLESMELER" />
+      <End Role="SOZDETAY" EntitySet="SOZDETAY" />
+    </AssociationSet>
+    <FunctionImport Name="sp_alterdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_creatediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="version" Mode="In" Type="Int32" />
+      <Parameter Name="definition" Mode="In" Type="Binary" />
+    </FunctionImport>
+    <FunctionImport Name="sp_dropdiagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagramdefinition">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_helpdiagrams">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+    </FunctionImport>
+    <FunctionImport Name="sp_renamediagram">
+      <Parameter Name="diagramname" Mode="In" Type="String" />
+      <Parameter Name="owner_id" Mode="In" Type="Int32" />
+      <Parameter Name="new_diagramname" Mode="In" Type="String" />
+    </FunctionImport>
+    <FunctionImport Name="sp_upgraddiagrams" />
+  </EntityContainer>
+</Schema>

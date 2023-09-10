@@ -1,0 +1,318 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Schema Namespace="fotoveritabaniModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+  <EntityType Name="Events">
+    <Key>
+      <PropertyRef Name="İd" />
+    </Key>
+    <Property Name="İd" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="title" Type="varchar" MaxLength="150" />
+    <Property Name="start" Type="varchar" MaxLength="150" />
+    <Property Name="color" Type="varchar" MaxLength="150" />
+    <Property Name="url" Type="varchar" MaxLength="150" />
+  </EntityType>
+  <EntityType Name="EXTRALAR">
+    <Key>
+      <PropertyRef Name="EXTRAID" />
+    </Key>
+    <Property Name="EXTRAID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AD" Type="varchar" MaxLength="50" />
+    <Property Name="FIYATTIPI" Type="varchar" MaxLength="50" />
+    <Property Name="FIYAT" Type="int" />
+  </EntityType>
+  <EntityType Name="MUSTERIEXTRALAR">
+    <Key>
+      <PropertyRef Name="MUSTERIEXTID" />
+    </Key>
+    <Property Name="MUSTERIEXTID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MUSTERIID" Type="int" />
+    <Property Name="EXTRAIDLER" Type="int" />
+  </EntityType>
+  <EntityType Name="MUSTERILER">
+    <Key>
+      <PropertyRef Name="MUSTERIID" />
+    </Key>
+    <Property Name="MUSTERIID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MUSTERIADSOYAD" Type="varchar" MaxLength="150" />
+    <Property Name="MUSTERITELEFON" Type="varchar" MaxLength="50" />
+    <Property Name="MUSTERISIFRE" Type="int" />
+    <Property Name="YETKILIMI" Type="bit" />
+  </EntityType>
+  <EntityType Name="MUSTERIRESIMLER">
+    <Key>
+      <PropertyRef Name="MUSTERIRESID" />
+    </Key>
+    <Property Name="MUSTERIRESID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MUSTERIID" Type="int" />
+    <Property Name="RESIMIDLER" Type="int" />
+  </EntityType>
+  <EntityType Name="MUSTERISOZLESMELER">
+    <Key>
+      <PropertyRef Name="MUSTERISOZID" />
+    </Key>
+    <Property Name="MUSTERISOZID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MUSTERIID" Type="int" />
+    <Property Name="SOZLESMEIDLER" Type="int" />
+  </EntityType>
+  <EntityType Name="PROGRAM">
+    <Key>
+      <PropertyRef Name="PROGRAMID" />
+    </Key>
+    <Property Name="PROGRAMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="PROGRAMLAR" Type="varchar" MaxLength="50" />
+  </EntityType>
+  <EntityType Name="RESIMLER">
+    <Key>
+      <PropertyRef Name="RESIMID" />
+    </Key>
+    <Property Name="RESIMID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="RESIMYOL" Type="varchar" MaxLength="255" />
+    <Property Name="REZERVEID" Type="int" />
+    <Property Name="MUSTERIID" Type="int" />
+  </EntityType>
+  <EntityType Name="REZERVASYON">
+    <Key>
+      <PropertyRef Name="REZERVEID" />
+    </Key>
+    <Property Name="REZERVEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="MUSTERIID" Type="int" />
+    <Property Name="REZERVETARIH" Type="varchar" MaxLength="250" />
+    <Property Name="BASLANGICSAAT" Type="varchar" MaxLength="50" />
+    <Property Name="BITISAAT" Type="varchar" MaxLength="50" />
+    <Property Name="PROGRAM" Type="int" />
+    <Property Name="DURUM" Type="varchar" MaxLength="50" />
+    <Property Name="DAMATAD" Type="varchar" MaxLength="50" />
+    <Property Name="GELINAD" Type="varchar" MaxLength="50" />
+    <Property Name="DAMATTEL" Type="varchar" MaxLength="50" />
+    <Property Name="GELINTEL" Type="varchar" MaxLength="50" />
+    <Property Name="DAMATEMAIL" Type="varchar" MaxLength="150" />
+    <Property Name="GELINEMAIL" Type="varchar" MaxLength="150" />
+    <Property Name="EVLILIKTARIHI" Type="date" />
+    <Property Name="MUSTERISOZID" Type="int" />
+    <Property Name="MUSTERIEXTID" Type="int" />
+    <Property Name="MUSTERIRESID" Type="int" />
+    <Property Name="SOZLESMEFIYAT" Type="int" />
+    <Property Name="EXTRAFIYAT" Type="int" />
+    <Property Name="ISKONTO" Type="int" />
+    <Property Name="FIYAT" Type="int" />
+    <Property Name="GENELTOPLAM" Type="int" />
+    <Property Name="NOTLAR" Type="varchar" MaxLength="500" />
+    <Property Name="CEKIMYERI" Type="varchar" MaxLength="150" />
+    <Property Name="EVENTS" Type="int" />
+    <Property Name="REZERVERESIM" Type="varchar" MaxLength="250" />
+  </EntityType>
+  <EntityType Name="SOZDETAY">
+    <Key>
+      <PropertyRef Name="DETAYID" />
+    </Key>
+    <Property Name="DETAYID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="DETAYAD" Type="varchar" MaxLength="1000" />
+    <Property Name="SOZLESMEID" Type="int" />
+  </EntityType>
+  <EntityType Name="SOZLESMELER">
+    <Key>
+      <PropertyRef Name="SOZLESMEID" />
+    </Key>
+    <Property Name="SOZLESMEID" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="AD" Type="varchar" MaxLength="150" />
+    <Property Name="FIYAT" Type="int" />
+  </EntityType>
+  <EntityType Name="sysdiagrams">
+    <Key>
+      <PropertyRef Name="diagram_id" />
+    </Key>
+    <Property Name="name" Type="nvarchar" MaxLength="128" Nullable="false" />
+    <Property Name="principal_id" Type="int" Nullable="false" />
+    <Property Name="diagram_id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+    <Property Name="version" Type="int" />
+    <Property Name="definition" Type="varbinary(max)" />
+  </EntityType>
+  <Association Name="FK_MUSTERIEXTRALAR_EXTRALAR">
+    <End Role="EXTRALAR" Type="Self.EXTRALAR" Multiplicity="0..1" />
+    <End Role="MUSTERIEXTRALAR" Type="Self.MUSTERIEXTRALAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="EXTRALAR">
+        <PropertyRef Name="EXTRAID" />
+      </Principal>
+      <Dependent Role="MUSTERIEXTRALAR">
+        <PropertyRef Name="EXTRAIDLER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MUSTERIEXTRALAR_MUSTERILER1">
+    <End Role="MUSTERILER" Type="Self.MUSTERILER" Multiplicity="0..1" />
+    <End Role="MUSTERIEXTRALAR" Type="Self.MUSTERIEXTRALAR" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUSTERILER">
+        <PropertyRef Name="MUSTERIID" />
+      </Principal>
+      <Dependent Role="MUSTERIEXTRALAR">
+        <PropertyRef Name="MUSTERIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MUSTERIRESIMLER_MUSTERILER">
+    <End Role="MUSTERILER" Type="Self.MUSTERILER" Multiplicity="0..1" />
+    <End Role="MUSTERIRESIMLER" Type="Self.MUSTERIRESIMLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUSTERILER">
+        <PropertyRef Name="MUSTERIID" />
+      </Principal>
+      <Dependent Role="MUSTERIRESIMLER">
+        <PropertyRef Name="MUSTERIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MUSTERIRESIMLER_RESIMLER">
+    <End Role="RESIMLER" Type="Self.RESIMLER" Multiplicity="0..1" />
+    <End Role="MUSTERIRESIMLER" Type="Self.MUSTERIRESIMLER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="RESIMLER">
+        <PropertyRef Name="RESIMID" />
+      </Principal>
+      <Dependent Role="MUSTERIRESIMLER">
+        <PropertyRef Name="RESIMIDLER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MUSTERISOZLESMELER_MUSTERILER">
+    <End Role="MUSTERILER" Type="Self.MUSTERILER" Multiplicity="0..1" />
+    <End Role="MUSTERISOZLESMELER" Type="Self.MUSTERISOZLESMELER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUSTERILER">
+        <PropertyRef Name="MUSTERIID" />
+      </Principal>
+      <Dependent Role="MUSTERISOZLESMELER">
+        <PropertyRef Name="MUSTERIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_MUSTERISOZLESMELER_SOZLESMELER">
+    <End Role="SOZLESMELER" Type="Self.SOZLESMELER" Multiplicity="0..1" />
+    <End Role="MUSTERISOZLESMELER" Type="Self.MUSTERISOZLESMELER" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SOZLESMELER">
+        <PropertyRef Name="SOZLESMEID" />
+      </Principal>
+      <Dependent Role="MUSTERISOZLESMELER">
+        <PropertyRef Name="SOZLESMEIDLER" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REZERVASYON_MUSTERILER1">
+    <End Role="MUSTERILER" Type="Self.MUSTERILER" Multiplicity="0..1" />
+    <End Role="REZERVASYON" Type="Self.REZERVASYON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="MUSTERILER">
+        <PropertyRef Name="MUSTERIID" />
+      </Principal>
+      <Dependent Role="REZERVASYON">
+        <PropertyRef Name="MUSTERIID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_REZERVASYON_PROGRAM">
+    <End Role="PROGRAM" Type="Self.PROGRAM" Multiplicity="0..1" />
+    <End Role="REZERVASYON" Type="Self.REZERVASYON" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="PROGRAM">
+        <PropertyRef Name="PROGRAMID" />
+      </Principal>
+      <Dependent Role="REZERVASYON">
+        <PropertyRef Name="PROGRAM" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Association Name="FK_SOZDETAY_SOZLESMELER1">
+    <End Role="SOZLESMELER" Type="Self.SOZLESMELER" Multiplicity="0..1" />
+    <End Role="SOZDETAY" Type="Self.SOZDETAY" Multiplicity="*" />
+    <ReferentialConstraint>
+      <Principal Role="SOZLESMELER">
+        <PropertyRef Name="SOZLESMEID" />
+      </Principal>
+      <Dependent Role="SOZDETAY">
+        <PropertyRef Name="SOZLESMEID" />
+      </Dependent>
+    </ReferentialConstraint>
+  </Association>
+  <Function Name="fn_diagramobjects" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="true" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" ReturnType="int" />
+  <Function Name="sp_alterdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_creatediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="version" Type="int" Mode="In" />
+    <Parameter Name="definition" Type="varbinary(max)" Mode="In" />
+  </Function>
+  <Function Name="sp_dropdiagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagramdefinition" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_helpdiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+  </Function>
+  <Function Name="sp_renamediagram" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo">
+    <Parameter Name="diagramname" Type="nvarchar" Mode="In" />
+    <Parameter Name="owner_id" Type="int" Mode="In" />
+    <Parameter Name="new_diagramname" Type="nvarchar" Mode="In" />
+  </Function>
+  <Function Name="sp_upgraddiagrams" Aggregate="false" BuiltIn="false" NiladicFunction="false" IsComposable="false" ParameterTypeSemantics="AllowImplicitConversion" Schema="dbo" />
+  <EntityContainer Name="fotoveritabaniModelStoreContainer">
+    <EntitySet Name="Events" EntityType="Self.Events" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="EXTRALAR" EntityType="Self.EXTRALAR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MUSTERIEXTRALAR" EntityType="Self.MUSTERIEXTRALAR" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MUSTERILER" EntityType="Self.MUSTERILER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MUSTERIRESIMLER" EntityType="Self.MUSTERIRESIMLER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="MUSTERISOZLESMELER" EntityType="Self.MUSTERISOZLESMELER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="PROGRAM" EntityType="Self.PROGRAM" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="RESIMLER" EntityType="Self.RESIMLER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="REZERVASYON" EntityType="Self.REZERVASYON" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SOZDETAY" EntityType="Self.SOZDETAY" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="SOZLESMELER" EntityType="Self.SOZLESMELER" Schema="dbo" store:Type="Tables" />
+    <EntitySet Name="sysdiagrams" EntityType="Self.sysdiagrams" Schema="dbo" store:Type="Tables" />
+    <AssociationSet Name="FK_MUSTERIEXTRALAR_EXTRALAR" Association="Self.FK_MUSTERIEXTRALAR_EXTRALAR">
+      <End Role="EXTRALAR" EntitySet="EXTRALAR" />
+      <End Role="MUSTERIEXTRALAR" EntitySet="MUSTERIEXTRALAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MUSTERIEXTRALAR_MUSTERILER1" Association="Self.FK_MUSTERIEXTRALAR_MUSTERILER1">
+      <End Role="MUSTERILER" EntitySet="MUSTERILER" />
+      <End Role="MUSTERIEXTRALAR" EntitySet="MUSTERIEXTRALAR" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MUSTERIRESIMLER_MUSTERILER" Association="Self.FK_MUSTERIRESIMLER_MUSTERILER">
+      <End Role="MUSTERILER" EntitySet="MUSTERILER" />
+      <End Role="MUSTERIRESIMLER" EntitySet="MUSTERIRESIMLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MUSTERIRESIMLER_RESIMLER" Association="Self.FK_MUSTERIRESIMLER_RESIMLER">
+      <End Role="RESIMLER" EntitySet="RESIMLER" />
+      <End Role="MUSTERIRESIMLER" EntitySet="MUSTERIRESIMLER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MUSTERISOZLESMELER_MUSTERILER" Association="Self.FK_MUSTERISOZLESMELER_MUSTERILER">
+      <End Role="MUSTERILER" EntitySet="MUSTERILER" />
+      <End Role="MUSTERISOZLESMELER" EntitySet="MUSTERISOZLESMELER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_MUSTERISOZLESMELER_SOZLESMELER" Association="Self.FK_MUSTERISOZLESMELER_SOZLESMELER">
+      <End Role="SOZLESMELER" EntitySet="SOZLESMELER" />
+      <End Role="MUSTERISOZLESMELER" EntitySet="MUSTERISOZLESMELER" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REZERVASYON_MUSTERILER1" Association="Self.FK_REZERVASYON_MUSTERILER1">
+      <End Role="MUSTERILER" EntitySet="MUSTERILER" />
+      <End Role="REZERVASYON" EntitySet="REZERVASYON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_REZERVASYON_PROGRAM" Association="Self.FK_REZERVASYON_PROGRAM">
+      <End Role="PROGRAM" EntitySet="PROGRAM" />
+      <End Role="REZERVASYON" EntitySet="REZERVASYON" />
+    </AssociationSet>
+    <AssociationSet Name="FK_SOZDETAY_SOZLESMELER1" Association="Self.FK_SOZDETAY_SOZLESMELER1">
+      <End Role="SOZLESMELER" EntitySet="SOZLESMELER" />
+      <End Role="SOZDETAY" EntitySet="SOZDETAY" />
+    </AssociationSet>
+  </EntityContainer>
+</Schema>

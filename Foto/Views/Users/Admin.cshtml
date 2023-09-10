@@ -1,0 +1,184 @@
+﻿@using PagedList;
+@using PagedList.Mvc;
+@{
+    ViewBag.Title = "Admin";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+    var url = Request.Url;
+
+    // URL ile ilgili işlemleri burada yapabilirsiniz
+    // Örneğin:
+    var absoluteUrl = url.AbsoluteUri;
+
+    var path = url.AbsolutePath;
+
+    var query = url.Query;
+}
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"> Kullanıcılar</h1>
+    <a href="#" data-toggle="modal" class="btn btn-primary" data-target="#KullaniciEkle"><i class="fas fa-plus"></i> &nbsp;Kullanıcı Ekle</a>
+</div>
+@using (Html.BeginForm("Ekle", "Users", FormMethod.Post))
+{
+    <div class="modal fade" id="KullaniciEkle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Kullanıcı Ekle !</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label>Yönetici Adı Soyadı</label>
+                    <input type="text" class="form-control " name="MUSTERIADSOYAD" placeholder="Ad Soyad" required />
+
+                    <label>Yönetici Telefon No</label>
+                    <input type="tel" class="form-control " name="MUSTERITELEFON" placeholder="0555****" required />
+
+                    <label>Yönetici Şifre</label>
+                    <input type="text" class="form-control" name="MUSTERISIFRE" required />
+
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">İPTAL</button>
+                    <input type="submit" class="btn btn-primary" name="name" value="kaydet" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+@* listeye atanan kullanıcıların tabloda gösterilmesi *@
+<table class="table table-bordered ">
+    <tr>
+        <th>Yönetici Adı</th>
+        <th>Telefon No</th>
+        <th>Sifre</th>
+        <th>Düzenle &nbsp;| &nbsp;Sil</th>
+
+    </tr>
+    <tbody>
+        @foreach (var item in ViewBag.adminler)
+        {
+            <tr>
+                <td>@item.MUSTERIADSOYAD</td>
+                <td>@item.MUSTERITELEFON</td>
+                <td>@item.MUSTERISIFRE</td>
+                <td>
+                    <a href="#" data-toggle="modal" data-target="#Guncelle-@item.MUSTERIID"><i class="fas fa-edit"></i></a>&nbsp;&nbsp; |&nbsp;&nbsp;
+                    <a href="#" data-toggle="modal" data-target="#Sil-@item.MUSTERIID"><i class="fas fa-trash"></i></a>
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+</table>
+
+
+
+@Html.PagedListPager(
+    (IPagedList)ViewBag.adminler,
+    sayfa => Url.Action("Userk", new { sayfa }),
+     new PagedListRenderOptions()
+     {
+         LiElementClasses = new List<string> { "page-item", "page-link" },
+         UlElementClasses = new List<string> { "pagination justify-content-center" }
+
+
+     })
+
+
+
+
+
+@* tabloda silmek istenilen kullanıcı seçilince açılacak olan modal *@
+@foreach (var item in ViewBag.adminler)
+{
+
+    <div class="modal fade" id="Sil-@item.MUSTERIID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Sil!</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Silmeye eminmisiniz @item.MUSTERIADSOYAD </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">İPTAL</button>
+                    <a class="btn btn-primary" href="/EXTRALAR/SIL/@item.MUSTERIID">SİL</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+
+@* tabloda düzenlemek istenilen kullanıcı seçilince açılacak olan modal *@
+@foreach (var item in ViewBag.adminler)
+{
+    using (Html.BeginForm("Guncelle", "Users", FormMethod.Post))
+    {
+
+        <div class="modal fade" id="Guncelle-@item.MUSTERIID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Güncelle !</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <input type="text" name="MUSTERIID" value="@item.MUSTERIID" hidden />
+                        <label>Kullanıcı Adı Soyadı</label>
+                        <input type="text" class="form-control " name="MUSTERIADSOYAD" value="@item.MUSTERIADSOYAD" placeholder="Ad Soyad" required />
+
+                        <label>Kullanıcı Telefon No</label>
+                        <input type="tel" class="form-control " name="MUSTERITELEFON" value="@item.MUSTERITELEFON" placeholder="0555****" required />
+
+                        <label>Kullanıcı Şifre</label>
+                        <input type="text" class="form-control" name="MUSTERISIFRE" value="@item.MUSTERISIFRE" required />
+
+                        <br />
+
+                        <div class="form-check">
+
+
+                           
+                            @if (@item.YETKILIMI == true)
+                            {
+                                <input type="checkbox" class="form-check-input" name="myCheckbox" checked required id="flexCheckDefault" />
+
+                            }
+                            else
+                            {
+                                <input type="checkbox" class="form-check-input" name="myCheckbox" required id="flexCheckDefault" />
+                            }
+                            <label class="form-check-label" for="flexCheckDefault">
+                                Yönetici Mi
+                            </label>
+                        </div>
+
+                        <br />
+
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">İPTAL</button>
+
+                        <input type="submit" class="btn btn-primary" name="name" value="Güncelle" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}
+

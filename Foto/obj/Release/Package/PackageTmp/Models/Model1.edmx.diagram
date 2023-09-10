@@ -1,0 +1,32 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="452b943122994d7a940caeabc772dd45" Name="Diagram1">
+        <EntityTypeShape EntityType="fotoveritabaniModel.Events" Width="1.5" PointX="0.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.EXTRALAR" Width="1.5" PointX="0.75" PointY="11.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.MUSTERIEXTRALAR" Width="1.5" PointX="3" PointY="7.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.MUSTERILER" Width="1.5" PointX="0.75" PointY="7.5" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.MUSTERIRESIMLER" Width="1.5" PointX="3" PointY="4.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.MUSTERISOZLESMELER" Width="1.5" PointX="3" PointY="10.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.PROGRAM" Width="1.5" PointX="3.75" PointY="2" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.RESIMLER" Width="1.5" PointX="0.75" PointY="3.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.REZERVASYON" Width="1.5" PointX="6" PointY="5.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.SOZDETAY" Width="1.5" PointX="3" PointY="15" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.SOZLESMELER" Width="1.5" PointX="0.75" PointY="14.875" IsExpanded="true" />
+        <EntityTypeShape EntityType="fotoveritabaniModel.sysdiagrams" Width="1.5" PointX="5.75" PointY="0.75" IsExpanded="true" />
+        <AssociationConnector Association="fotoveritabaniModel.FK_MUSTERIEXTRALAR_EXTRALAR" ManuallyRouted="false" />
+        <AssociationConnector Association="fotoveritabaniModel.FK_MUSTERIEXTRALAR_MUSTERILER1" ManuallyRouted="false" />
+        <AssociationConnector Association="fotoveritabaniModel.FK_MUSTERIRESIMLER_MUSTERILER" ManuallyRouted="false" />
+        <AssociationConnector Association="fotoveritabaniModel.FK_MUSTERISOZLESMELER_MUSTERILER" ManuallyRouted="false" />
+        <AssociationConnector Association="fotoveritabaniModel.FK_REZERVASYON_MUSTERILER1" ManuallyRouted="false" />
+        <AssociationConnector Association="fotoveritabaniModel.FK_MUSTERIRESIMLER_RESIMLER" ManuallyRouted="false" />
+        <AssociationConnector Association="fotoveritabaniModel.FK_MUSTERISOZLESMELER_SOZLESMELER" ManuallyRouted="false" />
+        <AssociationConnector Association="fotoveritabaniModel.FK_REZERVASYON_PROGRAM" ManuallyRouted="false" />
+        <AssociationConnector Association="fotoveritabaniModel.FK_SOZDETAY_SOZLESMELER1" ManuallyRouted="false" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>

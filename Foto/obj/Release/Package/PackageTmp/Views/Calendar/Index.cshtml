@@ -1,0 +1,52 @@
+﻿
+@{
+    ViewBag.Title = "Anasayfa";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/takvim/dist/index.global.js"></script>
+
+<script src="~/takvim/core/locales-all.global.js"></script>
+<script>
+
+    document.addEventListener('DOMContentLoaded', function () {
+        var calendarEl = document.getElementById('calendar');
+
+        var calendar = new FullCalendar.Calendar(calendarEl, {
+            headerToolbar: {
+                left: 'prevYear,prev,next,nextYear today',
+                center: 'title',
+                right: 'dayGridMonth,dayGridWeek,dayGridDay'
+            },
+            locale: 'tr',
+            navLinks: true, // can click day/week names to navigate views
+
+            dayMaxEvents: true, // allow "more" link when too many events
+            events: "/Calendar/EtkinlikleriGetir",
+
+
+        });
+
+        calendar.render();
+    });
+
+</script>
+<style>
+
+
+    #calendar {
+        max-width: 1200px;
+        max-height: 800px;
+        margin: 0 auto;
+    }
+</style>
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800">Takvim</h1>
+    <a href="~/Rezervasyon" class="d-sm-inline-block btn btn-sm btn-primary shadow-sm">
+        <i class="fas fa-download fa-sm text-white-50"></i> Rezervasyon Ekle
+    </a>
+</div>
+<div>
+    
+    <div id='calendar'></div>
+</div>

@@ -1,0 +1,591 @@
+﻿@model Foto.Models.REZERVASYON
+@using Foto.Models;
+@using System.Globalization
+@{
+
+
+    FotoDbEntities db = new FotoDbEntities();
+
+    List<PROGRAM> progrm = db.PROGRAM.ToList();
+    ViewBag.PROGRAM = progrm;
+
+    List<EXTRALAR> fundList = db.EXTRALAR.ToList();
+    ViewBag.EXTRALAR = fundList;
+
+    List<SOZLESMELER> sozleme = db.SOZLESMELER.ToList();
+    ViewBag.SOZLESMELER = sozleme;
+
+    ViewBag.Title = "Guncelle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+    ViewBag.durum = Model.DURUM;
+
+}
+
+
+<style>
+    .ddropdown-menu-item-title {
+        background: linear-gradient( 170deg,#4e73df,#2e364c);
+        padding: 5px;
+        margin: 5px 0px 0px 0px;
+        cursor: pointer;
+        border-radius: 15px;
+    }
+
+
+
+    .ddropdown-menu-item-data {
+        margin: 0;
+        overflow: hidden;
+        transition: height 0.3s ease-out;
+    }
+
+    .lbl {
+        padding-left: 10%;
+        padding-top: 10px;
+        padding-bottom: 10px;
+    }
+
+    .gg {
+        margin-right: 5px;
+        margin-top: 5px;
+    }
+
+    .ss {
+        padding-left: 200px;
+    }
+
+    .sr {
+        padding-right: 200px;
+    }
+
+    .ddropdown-menu-item-data.hide {
+        height: 0;
+    }
+
+    .ddropdown-menu-item-data.show {
+        height: var(--openHeight);
+    }
+
+    .ddropdown-submenu {
+        margin-top: 5px;
+        padding-top: 10px;
+        padding-left: 10px;
+        background-color: #e0e0e0;
+        list-style-type: none;
+        border: 1px solid #4e73df;
+        border-radius: 15px;
+        background-color: transparent;
+    }
+
+    .ddropdown-submenu-item {
+        padding: 12px;
+        background-color: transparent;
+    }
+
+    @@media screen and (max-width: 768px) {
+        .lbl {
+            padding-left: 10%;
+            padding-top: 10px;
+            padding-bottom: 10px;
+        }
+
+        .ss {
+            padding-left: 0px;
+        }
+
+        .sr {
+            padding-right: 0px;
+        }
+        /* .sidebar {
+            display: none;
+        }*/
+    }
+</style>
+
+<script src="~/Scripts/jquery-3.6.3.min.js"></script>
+<h2>Yeni Rezervasyon</h2>
+
+
+@using (Html.BeginForm("Guncelle", "Rezervasyon", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    @Html.AntiForgeryToken()
+
+    <div class="row ">
+        @* Sol taraf *@
+
+        <div class="col-sm ss">
+            <div class="mb-3 form-inline">
+                <div class="mb-3">
+                    <label>Rezervasyon Tarihi</label>
+                    @{
+                        DateTime tarih = DateTime.Parse(Model.REZERVETARIH);
+                        string tarihDegeri = tarih.ToString("yyyy-MM-dd");
+                    }
+
+                    @Html.TextBoxFor(model => model.REZERVETARIH, new { @class = "form-control", type = "date", value = tarihDegeri })
+                </div>
+                <div class="mb-3" style="margin-left:5px">
+                    <label>Başlangıç </label>
+                    @{
+                        DateTime saat = DateTime.ParseExact(Model.BASLANGICSAAT, "HH:mm", CultureInfo.InvariantCulture);
+                        string saatDegeri = saat.ToString("HH:mm");
+                    }
+
+                    @Html.TextBoxFor(model => model.BASLANGICSAAT, new { @class = "form-control", type = "time", value = saatDegeri })
+                </div>
+                <div class="mb-3" style="margin-left:5px">
+                    <label>Bitiş </label>
+                    @{
+                        DateTime saat1 = DateTime.ParseExact(Model.BITISAAT, "HH:mm", CultureInfo.InvariantCulture);
+                        string saatDegeri1 = saat.ToString("HH:mm");
+                    }
+
+                    @Html.TextBoxFor(model => model.BITISAAT, new { @class = "form-control", type = "time", value = saatDegeri1 })
+                    @*  <input type="time" class="form-control" name="BITISAAT" value="@saatDegeri1"  />*@
+
+
+                </div>
+            </div>
+
+            <label>Ad Soyad / Tel</label>
+            <div class="mb-3 form-inline">
+                <input type="text" name="REZERVEID" value="@Model.REZERVEID" hidden />
+                <input type="text" name="MUSTERIID" value="@Model.MUSTERIID" hidden />
+                <input type="text" name="EVENTS" value="@Model.EVENTS" hidden />
+                <input type="text" class="form-control gg" name="MUSTERIADSOYAD" value="@Model.MUSTERILER.MUSTERIADSOYAD" readonly />
+                <input type="tel" class="form-control gg" name="MUSTERITELEFON" value="@Model.MUSTERILER.MUSTERITELEFON" readonly />
+            </div>
+            <label>Damat / Gelin Ad</label>
+            <div class="mb-3 form-inline">
+
+
+                <input type="text" class="form-control gg" name="DAMATAD" value="@Model.DAMATAD" />
+                <input type="text" class="form-control gg" name="GELINAD" value="@Model.GELINAD" />
+            </div>
+            <label>Damat / Gelin Telefon</label>
+            <div class="mb-3 form-inline">
+                <input type="tel" class="form-control gg" name="DAMATTEL" value="@Model.DAMATTEL" />
+                <input type="tel" class="form-control gg" name="GELINTEL" value="@Model.GELINTEL" />
+            </div>
+            <label>Damat / Gelin Email</label>
+            <div class="mb-3 form-inline">
+                <input type="email" class="form-control gg" name="DAMATEMAIL" value="@Model.DAMATEMAIL" />
+                <input type="email" class="form-control gg" name="GELINEMAIL" value="@Model.GELINEMAIL" />
+            </div>
+            <div class="mb-3 ">
+                <label>PROGRAM</label>
+                <select name="PROGRAM" id="" class="form-select" style="width:214px">
+                    <option value="">Seçiniz</option>
+                    @foreach (var item in ViewBag.PROGRAM)
+                    {
+                        <option value="@item.PROGRAMID" @(item.PROGRAMID == ViewBag.programid ? "selected" : "")>@item.PROGRAMLAR</option>
+                        @*yukardaki yazan kodda veri controllerden viewbag içine seçili
+                            program idyi alıyoruz ve burda da eğer eşitse buna select et diyorum*@
+                    }
+                </select>
+
+            </div>
+
+            <div class="mb-3 ">
+                <label>Rezevasyon Durumu</label>
+                <select name="DURUM" id="DURUM" class="form-select" style="width:214px" required>
+                    <option value="">Seçiniz</option>
+                    <option value="1">Kesin</option>
+                    <option value="2">Tarih Açıkta</option>
+                    <option value="3">Teklif</option>
+
+                </select>
+                <script>
+                    var durum = @ViewBag.durum /* veritabanından çektiğiniz "DURUM" seçeneği */;
+                    document.getElementById("DURUM").value = durum;
+                </script>
+            </div>
+            <label>Sözleşme Fiyat</label>
+            <div class="mb-3 form-inline">
+                <input type="text" id="Sfiyat" name="SOZLESMEFIYAT" class="form-control" value="@Model.SOZLESMEFIYAT" readonly />
+                <label>Extra Fiyat</label>
+                <input type="text" id="Efiyat" name="EXTRAFIYAT" class="form-control" value="@Model.EXTRAFIYAT" readonly />
+            </div>
+            <label>İskonto</label>
+            <div class="mb-3 form-inline">
+                <input type="text" id="Ifiyat" name="ISKONTO" class="form-control" value="@Model.ISKONTO" />
+            </div>
+            <label>Fiyat</label>
+            <div class="mb-3 form-inline">
+                <input type="text" id="Bfiyat" name="FIYAT" class="form-control" value="@Model.FIYAT" />
+            </div>
+            <label>Genel Toplam</label>
+            <div class="mb-3 form-inline">
+                <input type="text" id="Gfiyat" name="GENELTOPLAM" class="form-control" value="@Model.GENELTOPLAM" readonly />
+            </div>
+            <label>Notlar / Özel İstekler </label>
+            <div class="mb-3">
+                <textarea class="form-control" name="NOTLAR" style="width:428px" rows="3">@Model.NOTLAR</textarea>
+            </div>
+            <label>Çekim Yeri</label>
+            <div class="mb-3 form-inline">
+                <input type="text" id="" style="width:428px" name="CEKIMYERI" value="@Model.CEKIMYERI" class="form-control" />
+            </div>
+        </div>
+        @* sağ taraf *@
+        <div class="col-sm sr">
+            <div class="mb-3">
+
+                <label for="" class="form-label">Sozlesmeler</label>
+                <select id="DrpSozlesme" name="sozlesmeler" class="form-select" required size="5" multiple>
+                    <option value="0">---Seçiniz--</option>
+                    @foreach (var item in ViewBag.SOZLESMELER)
+                    {
+                        <option data-fiyats="@item.FIYAT" name="sozlesmelerr" value="@item.SOZLESMEID">@item.AD (@item.FIYAT ₺)</option>
+
+                    }
+                </select>
+
+                <label for="" class="form-label">Detay</label>
+                @Html.TextArea("DrpSozdetay", "---Seçim Yapın--", new { @class = "form-control", @rows = "8", @readonly = true })
+
+            </div>
+
+            <div class="mb-3">
+                <div class="ddropdown-menu">
+                    <div>
+                        <div class="ddropdown-menu-item-title">EXTRALAR --V--</div>
+                        <div class="ddropdown-menu-item-data show">
+                            <div class="ddropdown-submenu">
+                                @foreach (var E in ViewBag.EXTRALAR)
+                                {
+                                    <label class="lbl">
+                                        <input type="checkbox" class="chxx" name="Extralar" data-Fiyat="@E.FIYAT" value="@E.EXTRAID"> @E.AD (@E.FIYAT ₺)                                                <span></span>
+                                    </label>
+                                }
+                            </div>
+                        </div>
+                    </div>
+                    <label for="" class="form-label">Resim Seç</label>
+                    @Html.TextBoxFor(x => x.REZERVERESIM, new { @class = "form-control", @type = "file", @accept = "image/*", @id = "aResim" })
+
+                    <div id="preview"></div>
+
+                </div>
+
+                <div class="mb-3">
+                    <table>
+                        <tr>
+                            <td style="padding:10PX 20PX"> <input type="checkbox" class="" name="Extralar" value=""></td>
+                            <td style="padding-top:10px"> Resim Çekildi</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10PX 20PX"> <input type="checkbox" class="" name="Extralar" value=""></td>
+                            <td style="padding-top:10px"> Albüm basıldı</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10PX 20PX"> <input type="checkbox" class="" name="Extralar" value=""></td>
+                            <td>Teslim edildi</td>
+                        </tr>
+                        <tr>
+                            <td style="padding:10PX 20PX"> <input type="checkbox" class="" name="Extralar" value=""></td>
+                            <td style="padding-top:10px">Tamamlandı</td>
+                        </tr>
+                    </table>
+
+
+                </div>
+
+            </div>
+        </div>
+
+    </div>
+    <!-- Bu sınıf ortalamak için -->
+
+    <div style="text-align:center">
+        <button type="submit" class="form-control" style="display: inline-block; background-color: #495883;color:white; width:auto;"><i class="fas fa-save"></i> &nbsp;Güncelle ve Kaydet</button>
+        <a href="#" data-toggle="modal" class="btn btn-primary" data-target="#ResimEkle"><i class="fas fa-cloud-upload-alt"></i> &nbsp;Resim Yükle</a>
+        <a href="/Rezervasyon/Resimler/@Model.MUSTERIID" class="btn btn-primary"><i class="fas fa-file-image"></i> &nbsp;Resimler</a>
+    </div>
+
+}
+@using (Html.BeginForm("ResimYukle", "Rezervasyon", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div class="modal fade" id="ResimEkle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> REsim Yükle !</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+
+                    <div class="progress">
+                        <div class="progress-bar" role="progressbar" id="progress-bar-fill" style="width: 0%;" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100">0%</div>
+                    </div>
+
+                    <label for="" class="form-label">Yüklenecek Resimleri Seçiniz</label>
+                    <input type="text" name="REZERVEID" value="@Model.REZERVEID" hidden />
+                    <input type="text" name="MUSTERIID" value="@Model.MUSTERIID" hidden />
+
+
+                    <input type="file" name="files"  class="form-control" accept="image/*" multiple>
+
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button"  data-dismiss="modal">İPTAL</button>
+                    <input type="submit" class="btn btn-primary" value="Yükle" />
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+}
+
+<script>
+    //$(document).ready(function () {
+    //    var progress = 0;
+    //    $('#myForm').submit(function (event) {
+    //        event.preventDefault(); // Formun varsayılan submit işlemini engelle
+
+    //        $.ajax({
+    //            type: 'POST',
+    //            url: '/Rezervasyon/ResimYukle',
+    //            dataType: 'json',
+    //            success: function (response) {
+    //                // Veriye yapılan işlemleri burada yapabilirsiniz
+
+    //                progress = response;
+    //                $('#progress-bar-fill').css('width', progress + '%').text(progress + '%');
+    //            },
+    //            error: function (xhr, status, error) {
+    //                // Hata durumunda yapılacak işlemleri burada yapabilirsiniz
+    //            }
+    //        });
+    //    });
+    //});
+      
+
+    //$(document).ready(function () {
+    //    $.ajax({
+    //        type: "GET",
+    //        url: "/Rezervasyon/sozlesmeler",
+    //        success: function (data) {
+    //            // dizi verileri burada kullanabilirsiniz
+    //            console.log(data);
+    //        },
+    //        error: function () {
+    //            alert('Bir hata oluştu');
+    //        }
+    //    });
+    //});
+
+    $(function () {
+        const images = document.getElementById('aResim'),
+            preview = document.getElementById('preview');
+
+        images.addEventListener('change', function () {
+            preview.innerHTML = '';
+            [...this.files].map(file => {
+                const reader = new FileReader();
+                reader.addEventListener('load', function () {
+                    const image = new Image();
+                    image.height = 100;
+                    image.title = file.name;
+                    image.src = this.result;
+                    preview.appendChild(image);
+                });
+                reader.readAsDataURL(file);
+            })
+        });
+        //window.onload olduğunda seçimi yapılmış olan idleri döndürme ve detayları getirme kodu yazılacak
+        $('#DrpSozlesme').change(function () {
+            var fiyats = [];
+            var cikis = 0;
+            $("option[name='sozlesmelerr']:selected").each(function () {
+                var categoryFiyat = $(this).attr("data-fiyats");
+                fiyats.push(categoryFiyat);
+            });
+
+            var id = $('#DrpSozlesme').val();
+            var test = String(id);
+            let ids = test.split(",");
+            $('#DrpSozdetay').empty();
+            for (var i = 0; i < ids.length; i++) {
+                //alert(ids[i]);
+                $.ajax({
+                    url: '/Rezervasyon/detayGetir',
+                    data: { p: ids[i] },
+                    type: "POST",
+                    dataType: "Json",
+                    success: function (data) {
+                        console.log(data);
+                        if (ids.length > 1) {
+                            $('#DrpSozdetay').append('\r' + "----------------------------------" + '\r');
+                        }
+                        for (var i = 0; i < data.length; i++) {
+                            $('#DrpSozdetay').append(data[i].text);
+
+                        }
+                    }
+                });
+            }
+
+            for (var i = 0; i < fiyats.length; i++) {
+                cikis += Number(fiyats[i]);
+
+                var dn = document.getElementById("Sfiyat").value = cikis;
+
+            } if (cikis == 0) {
+                var dn = document.getElementById("Sfiyat").value = 0;
+            }
+            /*
+           // alert(typeof (id));
+           // alert(typeof (String(id)));
+           // var test = (str)id.split(",")
+           $.ajax({
+               url: '/Rezervasyon/detayGetir',
+               data: { p: id },
+               type: "POST",
+               dataType: "Json",
+               success: function (data) {
+                   console.log(data);
+                   $('#DrpSozdetay').empty();
+                   for (var i = 0; i < data.length; i++) {
+                       $('#DrpSozdetay').append(data[i].text);
+
+                   }
+               }
+           });
+           */
+        });
+    });
+    $(document).ready(function () {
+
+        var sozlesmeidler = [];
+        var sozidler= @Html.Raw(Json.Encode(ViewBag.sozlesmeidler));
+        var sozlesmeidler = sozidler.map(item => item.value);
+
+
+
+        // Seçili seçenekleri belirle
+
+            $("#DrpSozlesme option").filter(function () {
+                return $.inArray(parseInt($(this).val()), sozlesmeidler) != -1;
+            }).prop("selected", true);
+        $("#DrpSozlesme").trigger("change");
+
+        var extraidler = [];
+        var extidler = @Html.Raw(Json.Encode(ViewBag.extraidler));
+        var extraidler = extidler.map(item => item.value);
+
+        $(".chxx ").filter(function () {
+            return $.inArray(parseInt($(this).val()), extraidler) != -1;
+        }).prop("checked", true);
+        $("#chxx").trigger("change");
+
+
+
+    });
+    $(function () {
+
+
+        $('.chxx').change(function () {
+            var fiyat = [];
+            var sonuc = 0;
+            $("input[name='Extralar']:checked").each(function () {
+                var categoryIdTwo = $(this).attr("data-fiyat");
+                fiyat.push(categoryIdTwo);
+
+            });
+            for (var i = 0; i < fiyat.length; i++) {
+                sonuc += Number(fiyat[i]);
+
+                var dn = document.getElementById("Efiyat").value = sonuc;
+
+            } if (sonuc == 0) {
+                var dn = document.getElementById("Efiyat").value = 0;
+            }
+
+            //--veri tabanı isteği
+            //$.ajax({
+            //    url: '/Rezervasyon/extraGetir',
+            //    data: { d: id[i] },
+            //    type: "POST",
+            //    dataType: "Json",
+            //    success: function (data) {
+            //        console.log(data);
+            //        $('#Efiyat').empty();
+            //        for (var i = 0; i < data.length; i++) {
+            //            /*$('#Efiyat').append(data[i].text);*/
+            //            /*var dn = document.getElementById("Efiyat").value = sonuc;*/
+            //            sonuc = data[i].Valuee;
+            //        }
+            //    }
+            //});
+        });
+    });
+
+    var szl = document.getElementById("Sfiyat").value = 0;
+
+
+    $(function () {
+
+        $('#DrpSozlesme').change(function () {
+            var isknt = Number(document.getElementById("Ifiyat").value = "");
+            var fyt = Number(document.getElementById("Bfiyat").value = "");
+
+            var sonuc = 0;
+            var ext = Number(document.getElementById("Efiyat").value);
+            var szl = Number(document.getElementById("Sfiyat").value);
+            sonuc = parseInt(szl) + parseInt(ext);
+            var gnl = Number(document.getElementById("Gfiyat").value = sonuc);
+        });
+        $('#Ifiyat').keyup(function () {
+            var sonuc = 0;
+            var ext = Number(document.getElementById("Efiyat").value);
+            var szl = Number(document.getElementById("Sfiyat").value);
+            sonuc = parseInt(szl) + parseInt(ext);
+            var isknt = Number(document.getElementById("Ifiyat").value);
+            var gnl = Number(document.getElementById("Gfiyat").value = sonuc - isknt);
+        });
+
+        $('#Bfiyat').keyup(function () {
+            var sonuc = 0;
+            var ext = Number(document.getElementById("Efiyat").value);
+            var szl = Number(document.getElementById("Sfiyat").value);
+            var fyt = Number(document.getElementById("Bfiyat").value);
+            var isknt = Number(document.getElementById("Ifiyat").value);
+            sonuc = parseInt(szl) + parseInt(ext) + parseInt(fyt) - parseInt(isknt);
+            var gnl = Number(document.getElementById("Gfiyat").value = sonuc);
+        });
+
+        $('.chxx').change(function () {
+            var isknt = Number(document.getElementById("Ifiyat").value = "");
+            var fyt = Number(document.getElementById("Bfiyat").value = "");
+
+            var sonuc = 0;
+            var ext = Number(document.getElementById("Efiyat").value);
+            var szl = Number(document.getElementById("Sfiyat").value);
+            sonuc = parseInt(szl) + parseInt(ext);
+            var gnl = Number(document.getElementById("Gfiyat").value = sonuc);
+
+        });
+
+    });
+
+    let dropdownMenuItemTitles = document.querySelectorAll('.ddropdown-menu-item-title');
+
+    dropdownMenuItemTitles.forEach(menuItemTitle => {
+        menuItemTitle.addEventListener('click', (e) => {
+
+            const menuItemData = e.target.nextElementSibling;
+
+            menuItemData.style.setProperty('--openHeight', menuItemData.scrollHeight + 'px');
+
+            menuItemData.classList.toggle('show');
+            menuItemData.classList.toggle('hide');
+        })
+    });
+</script>

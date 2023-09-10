@@ -1,0 +1,71 @@
+﻿@using Foto.Models;
+@model List<RESIMLER>
+@{
+    
+    int sayac = 0;
+    ViewBag.Title = "Resimler";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+<style>
+    .img-boyut {
+        width: 200px;
+        height: 200px;
+        object-fit: contain;
+    }
+</style>
+
+<!-- Modal -->
+@foreach (var image in Model)
+{
+    <div id="image-@image.RESIMID" class="modal fade "  tabindex="-1" role="dialog">
+        <div class="modal-dialog modal-dialog-centered modal-lg" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title">@*@image.Name*@ RESİMLER</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body" style="text-align:center">
+                    <img src="@image.RESIMYOL"  class="img-fluid">
+                </div>
+            </div>
+        </div>
+    </div>
+}
+
+<table class="table">
+    <tr>
+        <th scope="col">#</th>
+        <th scope="col" style="text-align:center">Resim</th>
+        <th scope="col">Rezervayon No</th>
+        <th scope="col">Musteri</th>
+        <th scope="col">Düzenle &nbsp;| &nbsp;Sil</th>
+
+    </tr>
+    <tbody>
+        
+        @foreach (var item in Model)
+        {
+            sayac++;
+            <tr>
+                <th scope="row">@sayac</th>
+                <td style="text-align:center">
+                    <a href="#" data-toggle="modal" data-target="#image-@item.RESIMID">
+                        <img class="img-boyut" src="@item.RESIMYOL" width="200">
+                    </a>
+                </td>
+                <td>@item.REZERVEID</td>
+                <td>@item.MUSTERIID</td>
+                <td>
+                    <a href="~/Rezervasyon/ResimSil/@item.RESIMID"><i class="fas fa-trash"></i></a>
+                     
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+
+    </table>
+

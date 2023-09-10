@@ -1,0 +1,35 @@
+﻿
+@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script src="~/Scripts/jquery-3.6.3.min.js"></script>
+<h2>Welcome To Ajax Loader</h2>
+<div id="divLoader" style="display:none;"> <img src="~/img/loading.gif" alt="Loader" /> </div>
+<input type="submit" id="btnSubmit" value="Submit" />
+<script>
+    $("#btnSubmit").click(function () {
+        $("#divLoader").show();
+        $.ajax
+            ({
+                url: '/Test/Submit',
+                dataType: "json",
+                type: "POST",
+                contentType: 'application/json; charset=utf-8',
+                data: {},
+                //async: true,
+                //processData: false,
+                // cache: false,
+                success: function (data) {
+                    $("#divLoader").hide();
+                    alert(data);
+                },
+                error: function (xhr) {
+                    $("#divLoader").hide();
+                    alert('error');
+                }
+            })
+    });
+</script>
+

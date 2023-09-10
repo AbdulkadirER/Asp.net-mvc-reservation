@@ -1,0 +1,72 @@
+﻿
+@{
+    ViewBag.Title = "İsEkle";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+
+
+}
+
+
+<div class="row">
+    <div class="col-sm">
+        <label for="" class="form-label">Ad Giriniz</label>
+        <input type="text" class="form-control" name="name" value="" placeholder="isim" />
+        <div class="mb-3">
+            <label for="" class="form-label">Foto Tipi</label>
+            <select name="aGösterge" id="aGösterge" class="form-select" required>
+                <option value="">Seçiniz</option>
+                <option value="1">1</option>
+                <option value="1">1</option>
+
+            </select>
+
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Çerçeve boyutu</label>
+            <select name="aYakit" id="aYakit" class="form-select" required>
+                <option value="">Seçiniz</option>
+                <option value="1">1</option>
+                <option value="2">1</option>
+                <option value="3">1</option>
+
+            </select>
+
+        </div>
+    </div>
+    <div class="col-sm">
+        <div class="mb-3">
+
+            <label for="" class="form-label">Albüm</label>
+            <select name="aVites" id="aVites" class="form-select" required>
+                <option value="">Seçiniz</option>
+                <option value="1">1</option>
+                <option value="2">2</option>
+                <option value="3">3</option>
+                <option value="4">4 </option>
+            </select>
+
+        </div>
+        <div class="mb-3">
+            <label for="" class="form-label">Resim Seç</label>
+
+
+            <input type="file" class="form-control" multiple accept="image/*" id="aResim" required>
+
+            <div id="preview"></div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- Bu sınıf ortalamak için -->
+<div class="justify-content-center">
+
+    <input type="button" name="name" class="form-control" value="Kaydet" />
+</div>
+
+
+
+
+
+

@@ -1,0 +1,142 @@
+﻿@using Foto.Models;
+@model List<EXTRALAR>
+@{
+    ViewBag.Title = "Extralar";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+
+
+<div class="d-sm-flex align-items-center justify-content-between mb-4">
+    <h1 class="h3 mb-0 text-gray-800"> Extralar</h1>
+    <a href="#" data-toggle="modal" class="btn btn-primary" data-target="#ExtraEkle"><i class="fas fa-plus"></i> &nbsp;Extra Ekle</a>
+</div>
+@using (Html.BeginForm("Ekle", "Extralar", FormMethod.Post))
+{
+    <div class="modal fade" id="ExtraEkle" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Extra Ekle !</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <label>Extra Adı</label>
+                    <input type="text" class="form-control " name="AD" value="" required />
+                    <label>Extra Fiyat Tipi</label>
+                    <select name="FIYATTIPI" id="" class="form-select" required>
+                        <option value="Seçiniz">Seçiniz</option>
+                        <option value="Toplam fiyat">Toplam fiyat</option>
+                        <option value="Kişibaşı fiyat">Kişibaşı fiyat</option>
+                        <option value="Kişibaşı/Fiyat aralığı">Kişibaşı/Fiyat aralığı</option>
+
+                    </select>
+                    <label>Fiyat</label>
+                    <input type="text" class="form-control" name="FIYAT" value="" required />
+                    <br />
+
+                </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">İPTAL</button>
+                    <input type="submit" class="btn btn-primary" name="name" value="kaydet" />
+                </div>
+            </div>
+        </div>
+    </div>
+}
+<br />
+<table class="table table-bordered ">
+    <tr>
+        <th>Extra Ad</th>
+        <th>Fiyat Tipi</th>
+        <th>Fiyat ₺</th>
+        <th>Düzenle &nbsp;| &nbsp;Sil</th>
+
+    </tr>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>@item.AD</td>
+                <td>@item.FIYATTIPI</td>
+                <td>@item.FIYAT</td>
+                <td>
+                    <a href="#" data-toggle="modal" data-target="#Guncelle-@item.EXTRAID"><i class="fas fa-edit"></i></a>&nbsp;&nbsp; |&nbsp;&nbsp;
+                    <a href="#" data-toggle="modal" data-target="#Sil-@item.EXTRAID"><i class="fas fa-trash"></i></a>
+                </td>
+
+
+            </tr>
+        }
+    </tbody>
+
+</table>
+@foreach (var item in Model)
+{
+
+    <div class="modal fade" id="Sil-@item.EXTRAID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+         aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel"> Sil!</h5>
+                    <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">×</span>
+                    </button>
+                </div>
+                <div class="modal-body">Silmeye eminmisiniz @item.AD </div>
+                <div class="modal-footer">
+                    <button class="btn btn-secondary" type="button" data-dismiss="modal">İPTAL</button>
+                    <a class="btn btn-primary" href="/EXTRALAR/SIL/@item.EXTRAID">Sil</a>
+                </div>
+            </div>
+        </div>
+    </div>
+
+}
+@foreach (var item in Model)
+{
+    using (Html.BeginForm("Guncelle", "Extralar", FormMethod.Post))
+    {
+
+        <div class="modal fade" id="Guncelle-@item.EXTRAID" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+             aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Güncelle !</h5>
+                        <button class="close" type="button" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">×</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                       @* <label>Extra ID</label>*@
+                        <input type="text" class="form-control" hidden name="EXTRAID" value="@item.EXTRAID" enable="false" readonly />
+                        <label>Extra Adı</label>
+                        <input type="text" class="form-control " name="AD" value="@item.AD" enable="false" />
+                        <label>Extra Fiyat Tipi</label>
+                        <select name="FIYATTIPI" id="" class="form-select" required>
+                            <option value="@item.FIYATTIPI">@item.FIYATTIPI</option>
+                            <option value="Toplam fiyat">Toplam fiyat</option>
+                            <option value="Kişibaşı fiyat">Kişibaşı fiyat</option>
+                            <option value="Kişibaşı/Fiyat aralığı">Kişibaşı/Fiyat aralığı</option>
+
+                        </select>
+                        <label>Fiyat</label>
+                        <input type="text" class="form-control" name="FIYAT" value="@item.FIYAT" required />
+                        <br />
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-secondary" type="button" data-dismiss="modal">İPTAL</button>
+
+                        <input type="submit" class="btn btn-primary" name="name" value="Güncelle" />
+                    </div>
+                </div>
+            </div>
+        </div>
+    }
+}

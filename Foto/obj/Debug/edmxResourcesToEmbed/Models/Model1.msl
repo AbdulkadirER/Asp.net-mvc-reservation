@@ -1,0 +1,167 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+  <EntityContainerMapping StorageEntityContainer="FotoDbModelStoreContainer" CdmEntityContainer="FotoDbEntities">
+    <EntitySetMapping Name="Events">
+      <EntityTypeMapping TypeName="FotoDbModel.Events">
+        <MappingFragment StoreEntitySet="Events">
+          <ScalarProperty Name="İd" ColumnName="İd" />
+          <ScalarProperty Name="title" ColumnName="title" />
+          <ScalarProperty Name="start" ColumnName="start" />
+          <ScalarProperty Name="color" ColumnName="color" />
+          <ScalarProperty Name="url" ColumnName="url" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="EXTRALAR">
+      <EntityTypeMapping TypeName="FotoDbModel.EXTRALAR">
+        <MappingFragment StoreEntitySet="EXTRALAR">
+          <ScalarProperty Name="EXTRAID" ColumnName="EXTRAID" />
+          <ScalarProperty Name="AD" ColumnName="AD" />
+          <ScalarProperty Name="FIYATTIPI" ColumnName="FIYATTIPI" />
+          <ScalarProperty Name="FIYAT" ColumnName="FIYAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MUSTERIEXTRALAR">
+      <EntityTypeMapping TypeName="FotoDbModel.MUSTERIEXTRALAR">
+        <MappingFragment StoreEntitySet="MUSTERIEXTRALAR">
+          <ScalarProperty Name="MUSTERIEXTID" ColumnName="MUSTERIEXTID" />
+          <ScalarProperty Name="MUSTERIID" ColumnName="MUSTERIID" />
+          <ScalarProperty Name="EXTRAIDLER" ColumnName="EXTRAIDLER" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MUSTERILER">
+      <EntityTypeMapping TypeName="FotoDbModel.MUSTERILER">
+        <MappingFragment StoreEntitySet="MUSTERILER">
+          <ScalarProperty Name="MUSTERIID" ColumnName="MUSTERIID" />
+          <ScalarProperty Name="MUSTERIADSOYAD" ColumnName="MUSTERIADSOYAD" />
+          <ScalarProperty Name="MUSTERITELEFON" ColumnName="MUSTERITELEFON" />
+          <ScalarProperty Name="MUSTERISIFRE" ColumnName="MUSTERISIFRE" />
+          <ScalarProperty Name="YETKILIMI" ColumnName="YETKILIMI" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MUSTERIRESIMLER">
+      <EntityTypeMapping TypeName="FotoDbModel.MUSTERIRESIMLER">
+        <MappingFragment StoreEntitySet="MUSTERIRESIMLER">
+          <ScalarProperty Name="MUSTERIRESID" ColumnName="MUSTERIRESID" />
+          <ScalarProperty Name="MUSTERIID" ColumnName="MUSTERIID" />
+          <ScalarProperty Name="RESIMIDLER" ColumnName="RESIMIDLER" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="MUSTERISOZLESMELER">
+      <EntityTypeMapping TypeName="FotoDbModel.MUSTERISOZLESMELER">
+        <MappingFragment StoreEntitySet="MUSTERISOZLESMELER">
+          <ScalarProperty Name="MUSTERISOZID" ColumnName="MUSTERISOZID" />
+          <ScalarProperty Name="MUSTERIID" ColumnName="MUSTERIID" />
+          <ScalarProperty Name="SOZLESMEIDLER" ColumnName="SOZLESMEIDLER" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="PROGRAM">
+      <EntityTypeMapping TypeName="FotoDbModel.PROGRAM">
+        <MappingFragment StoreEntitySet="PROGRAM">
+          <ScalarProperty Name="PROGRAMID" ColumnName="PROGRAMID" />
+          <ScalarProperty Name="PROGRAMLAR" ColumnName="PROGRAMLAR" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="RESIMLER">
+      <EntityTypeMapping TypeName="FotoDbModel.RESIMLER">
+        <MappingFragment StoreEntitySet="RESIMLER">
+          <ScalarProperty Name="RESIMID" ColumnName="RESIMID" />
+          <ScalarProperty Name="RESIMYOL" ColumnName="RESIMYOL" />
+          <ScalarProperty Name="REZERVEID" ColumnName="REZERVEID" />
+          <ScalarProperty Name="MUSTERIID" ColumnName="MUSTERIID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="REZERVASYON">
+      <EntityTypeMapping TypeName="FotoDbModel.REZERVASYON">
+        <MappingFragment StoreEntitySet="REZERVASYON">
+          <ScalarProperty Name="REZERVEID" ColumnName="REZERVEID" />
+          <ScalarProperty Name="MUSTERIID" ColumnName="MUSTERIID" />
+          <ScalarProperty Name="REZERVETARIH" ColumnName="REZERVETARIH" />
+          <ScalarProperty Name="BASLANGICSAAT" ColumnName="BASLANGICSAAT" />
+          <ScalarProperty Name="BITISAAT" ColumnName="BITISAAT" />
+          <ScalarProperty Name="PROGRAM" ColumnName="PROGRAM" />
+          <ScalarProperty Name="DURUM" ColumnName="DURUM" />
+          <ScalarProperty Name="DAMATAD" ColumnName="DAMATAD" />
+          <ScalarProperty Name="GELINAD" ColumnName="GELINAD" />
+          <ScalarProperty Name="DAMATTEL" ColumnName="DAMATTEL" />
+          <ScalarProperty Name="GELINTEL" ColumnName="GELINTEL" />
+          <ScalarProperty Name="DAMATEMAIL" ColumnName="DAMATEMAIL" />
+          <ScalarProperty Name="GELINEMAIL" ColumnName="GELINEMAIL" />
+          <ScalarProperty Name="EVLILIKTARIHI" ColumnName="EVLILIKTARIHI" />
+          <ScalarProperty Name="MUSTERISOZID" ColumnName="MUSTERISOZID" />
+          <ScalarProperty Name="MUSTERIEXTID" ColumnName="MUSTERIEXTID" />
+          <ScalarProperty Name="MUSTERIRESID" ColumnName="MUSTERIRESID" />
+          <ScalarProperty Name="SOZLESMEFIYAT" ColumnName="SOZLESMEFIYAT" />
+          <ScalarProperty Name="EXTRAFIYAT" ColumnName="EXTRAFIYAT" />
+          <ScalarProperty Name="ISKONTO" ColumnName="ISKONTO" />
+          <ScalarProperty Name="FIYAT" ColumnName="FIYAT" />
+          <ScalarProperty Name="GENELTOPLAM" ColumnName="GENELTOPLAM" />
+          <ScalarProperty Name="NOTLAR" ColumnName="NOTLAR" />
+          <ScalarProperty Name="CEKIMYERI" ColumnName="CEKIMYERI" />
+          <ScalarProperty Name="EVENTS" ColumnName="EVENTS" />
+          <ScalarProperty Name="REZERVERESIM" ColumnName="REZERVERESIM" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SOZDETAY">
+      <EntityTypeMapping TypeName="FotoDbModel.SOZDETAY">
+        <MappingFragment StoreEntitySet="SOZDETAY">
+          <ScalarProperty Name="DETAYID" ColumnName="DETAYID" />
+          <ScalarProperty Name="DETAYAD" ColumnName="DETAYAD" />
+          <ScalarProperty Name="SOZLESMEID" ColumnName="SOZLESMEID" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="SOZLESMELER">
+      <EntityTypeMapping TypeName="FotoDbModel.SOZLESMELER">
+        <MappingFragment StoreEntitySet="SOZLESMELER">
+          <ScalarProperty Name="SOZLESMEID" ColumnName="SOZLESMEID" />
+          <ScalarProperty Name="AD" ColumnName="AD" />
+          <ScalarProperty Name="FIYAT" ColumnName="FIYAT" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <EntitySetMapping Name="sysdiagrams">
+      <EntityTypeMapping TypeName="FotoDbModel.sysdiagrams">
+        <MappingFragment StoreEntitySet="sysdiagrams">
+          <ScalarProperty Name="name" ColumnName="name" />
+          <ScalarProperty Name="principal_id" ColumnName="principal_id" />
+          <ScalarProperty Name="diagram_id" ColumnName="diagram_id" />
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </MappingFragment>
+      </EntityTypeMapping>
+    </EntitySetMapping>
+    <FunctionImportMapping FunctionImportName="sp_alterdiagram" FunctionName="FotoDbModel.Store.sp_alterdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_creatediagram" FunctionName="FotoDbModel.Store.sp_creatediagram" />
+    <FunctionImportMapping FunctionImportName="sp_dropdiagram" FunctionName="FotoDbModel.Store.sp_dropdiagram" />
+    <FunctionImportMapping FunctionImportName="sp_helpdiagramdefinition" FunctionName="FotoDbModel.Store.sp_helpdiagramdefinition">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FotoDbModel.sp_helpdiagramdefinition_Result">
+          <ScalarProperty Name="version" ColumnName="version" />
+          <ScalarProperty Name="definition" ColumnName="definition" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_helpdiagrams" FunctionName="FotoDbModel.Store.sp_helpdiagrams">
+      <ResultMapping>
+        <ComplexTypeMapping TypeName="FotoDbModel.sp_helpdiagrams_Result">
+          <ScalarProperty Name="Database" ColumnName="Database" />
+          <ScalarProperty Name="Name" ColumnName="Name" />
+          <ScalarProperty Name="ID" ColumnName="ID" />
+          <ScalarProperty Name="Owner" ColumnName="Owner" />
+          <ScalarProperty Name="OwnerID" ColumnName="OwnerID" />
+        </ComplexTypeMapping>
+      </ResultMapping>
+    </FunctionImportMapping>
+    <FunctionImportMapping FunctionImportName="sp_renamediagram" FunctionName="FotoDbModel.Store.sp_renamediagram" />
+    <FunctionImportMapping FunctionImportName="sp_upgraddiagrams" FunctionName="FotoDbModel.Store.sp_upgraddiagrams" />
+  </EntityContainerMapping>
+</Mapping>
